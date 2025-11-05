@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item active" >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="visionlanguageactionvla">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</h1>
+<p><strong>读者画像</strong>：AI Scientist｜中型研发团队的 Infra/系统工程师
+<strong>目标产物</strong>：1B 与 10B 参数档的生产级 <strong>Pretrain Checkpoint</strong> 及全链路可复现工程
+<strong>覆盖模态</strong>：Text / Audio / Video / Image / 3D
+<strong>底层框架</strong>：Megatron 系列（TransformerEngine / FP8 / BF16），单次训练以 <strong>10T token</strong> 过一遍为准，集群 <strong>256×H100 80GB</strong> 参考设计
+<strong>合规声明</strong>：数据采集与使用需遵守各来源许可及平台政策（例如优先使用官方 API、尊重 robots.txt，不提供绕过访问控制的手段）</p>
+<hr />
+<h2 id="_1">已确认的设计约束（据用户指示）</h2>
+<ul>
+<li><strong>语种</strong>：包含方言/少数语种，<strong>以 IPA（国际音标）兜底统一表征</strong>。</li>
+<li><strong>视频标准</strong>：<strong>6‑camera 环视 480p@12 Hz</strong>（多摄同步），按此制定采样与存储/搬运预算。</li>
+<li><strong>MoE</strong>：采用<strong>先进路由/并行架</strong>（10B 档主打 MoE；1B 为 Dense 基线）。</li>
+<li><strong>精度</strong>：<strong>主干 FP8 + BF16 优化器</strong>（TransformerEngine）。</li>
+<li><strong>3D 优先级</strong>：1) <strong>Blender/CAD 脚本的程序化几何</strong>；2) <strong>X3D‑类文本结构化格式</strong>；3) <strong>.obj</strong> 作为回落；必要时再扩展点云/网格常用格式。</li>
+<li><strong>驾驶视频</strong>：明确<strong>多摄/环视</strong>与传感器时间同步需求。</li>
+</ul>
+<hr />
+<h2 id="index">目录（index）</h2>
+<h3 id="chapter1md">[chapter1.md] 前言、范围与读者指南</h3>
+<ul>
+<li>1.1 为什么是 VLA：统一感知‑语言‑行动的产业动因</li>
+<li>1.2 三大落地场景：自动驾驶/具身、语音交互助手、通用多模体检索/生成</li>
+<li>1.3 本书产物与不在 scope 的内容</li>
+<li>1.4 环境前置与硬件/软件依赖清单（Megatron/TE，<strong>FP8 主干 + BF16 优化器</strong>）</li>
+<li>1.5 内容导航与阅读路径（Scientist vs. Infra）</li>
+<li>1.6 与时间线的衔接方式（每章的 <strong>[里程碑]</strong> 标注规则）</li>
+</ul>
+<h3 id="chapter2md-w0w26">[chapter2.md] 全局时间线与里程碑（W0–W26）</h3>
+<ul>
+<li>2.1 总览甘特：数据→模型→训练→馏→评测→交付</li>
+<li>
+<p>2.2 关键里程碑：</p>
+</li>
+<li>
+<p><strong>W0–W2</strong> 方案冻结 &amp; PoC；<strong>W3–W6</strong> 采集/治理 MVP；</p>
+</li>
+<li><strong>W7–W10</strong> 1B 端到端跑通；<strong>W11–W18</strong> 10B 主线预训练（10T/epoch）；</li>
+<li><strong>W19–W22</strong> 蒸馏与中期评测；<strong>W23–W26</strong> 收尾、复现包与发布</li>
+<li>2.3 风险缓释检查点（数据、算力、带宽、法务）</li>
+<li>2.4 交付物与验收口径（按周）</li>
+</ul>
+<h3 id="chapter3md-vla-ad">[chapter3.md] 需求拆解与系统能力画像（VLA / AD / 语音）</h3>
+<ul>
+<li>3.1 VLA 抽象接口：观测→指令→行动 token 空间</li>
+<li>3.2 自动驾驶与具身任务族：开环/闭环指标与回放‑到‑行动映射（<strong>多摄环视输入</strong>）</li>
+<li>3.3 语音交互：ASR/TTS/对话联动与延迟预算（<strong>IPA 兼容</strong>）</li>
+<li>3.4 上下文与记忆：长上下文与跨模态缓存</li>
+<li>3.5 安全与伦理底线需求</li>
+</ul>
+<h3 id="chapter4md-30t-token">[chapter4.md] 数据总体策略与 <strong>30T token</strong> 配额（多语多模）</h3>
+<ul>
+<li>4.1 语种与模态配比：<strong>中/英 90% + 他语 10%</strong>（含<strong>方言/少数语种 + IPA</strong> 兜底）</li>
+<li>4.2 料类型与“强中期训练（mid‑training）”角色</li>
+<li>4.3 <strong>配额表设计</strong>：将 30T 分解到具体数据集（文本/音频/视频/图像/3D/合成） <strong>[W3]</strong></li>
+<li>4.4 温度采样与混合比调度（by stage）</li>
+<li>4.5 数据谱系与治理台账（Data Lineage）</li>
+</ul>
+<h3 id="chapter5md-i">[chapter5.md] 数据采集 I：网页文本与代码（合规）</h3>
+<ul>
+<li>5.1 目标域与白名单源</li>
+<li>5.2 官方 API / 开源语料与“别人已洗好的包”的接入策略</li>
+<li>5.3 抓取框架与高并发限流</li>
+<li>5.4 元数据/版权/许可记录</li>
+<li>5.5 增量抓取与重复去重（URL/SimHash/MinHash）</li>
+<li>5.6 粗筛：语言/主题/毒性/PII</li>
+</ul>
+<h3 id="chapter6md-ii">[chapter6.md] 数据采集 II：<strong>音频/语音</strong>（播客、公开课、语音数据集）</h3>
+<ul>
+<li>6.1 来源与许可；VAD/VAD++ 管道</li>
+<li>6.2 ASR 转写与多语 LID（<strong>方言/少数语种 + IPA 对齐</strong>）</li>
+<li>6.3 说话人分离/聚类（Diarization）</li>
+<li>6.4 噪声与版权音乐检测</li>
+<li>6.5 切分与时间对齐、文本‑音频配对（含 IPA 层）</li>
+<li>6.6 采样率/比特率与存预算 <strong>[W4]</strong></li>
+</ul>
+<h3 id="chapter7md-iii">[chapter7.md] 数据采集 III：<strong>视频</strong>（长/短视频、驾驶/具身）</h3>
+<ul>
+<li>7.1 合规采集：<strong>优先官方 API</strong>、尊重 robots.txt/ToS</li>
+<li>7.2 <strong>多摄环视</strong>：<strong>6‑camera 480p@12 Hz</strong> 时序同步、标定与外参/内参治理</li>
+<li>7.3 帧采样与镜头检测；字幕/ASR 对齐</li>
+<li>7.4 驾驶/具身专用：传感器同步（RGB、深度、IMU、CAN、地图）</li>
+<li>7.5 大规模存储与<strong>搬运成本</strong>：冷/热层、对象存储与数据搬迁 <strong>[W5]</strong></li>
+<li>7.6 去重与相似片段合并；码率/编解码与归档策略</li>
+</ul>
+<h3 id="chapter8md-iv">[chapter8.md] 数据采集 IV：<strong>图像</strong></h3>
+<ul>
+<li>8.1 通用图像与驾驶场景图像来源</li>
+<li>8.2 EXIF/地理等元数据治理</li>
+<li>8.3 多标签弱监督与质量分</li>
+<li>8.4 NSFW/徽标/水印检测</li>
+</ul>
+<h3 id="chapter9md-v3d">[chapter9.md] 数据采集 V：<strong>3D（程序化优先）</strong></h3>
+<ul>
+<li>9.1 <strong>Blender/CAD 脚本</strong>：程序化几何与参数化场景（可回放、可版本化）</li>
+<li>9.2 <strong>X3D‑类文本结构化格式</strong>：层级/拓扑/材质的文本化表示</li>
+<li>9.3 <strong>.obj 回落</strong> 与互操作；必要时扩展到 .ply/.pcd</li>
+<li>9.4 3D‑文本/视频对齐策略与标定元数据</li>
+<li>9.5 3D 数据压缩、规整与重复检测</li>
+</ul>
+<h3 id="chapter10md">[chapter10.md] 数据治理与质量度量（跨模态）</h3>
+<ul>
+<li>10.1 语义、格式、对齐一致性度量（含 IPA 层一致性）</li>
+<li>10.2 Near‑duplicate/跨模态重复清理</li>
+<li>10.3 PII/合规清洗与审计抽样</li>
+<li>10.4 数据错配与漂移监控仪表盘 <strong>[W6]</strong></li>
+</ul>
+<h3 id="chapter11md-fasttext">[chapter11.md] 过滤与去脏：<strong>fastText 与小模型</strong> 策略库</h3>
+<ul>
+<li>11.1 fastText 语言/主题/质量分布（加入<strong>方言/少数语种</strong>标签映射）</li>
+<li>11.2 文本小模型：毒性/仇恨/广告/低质检测</li>
+<li>11.3 音频小模型：VAD、LID、音乐/噪声、<strong>IPA 一致性校验</strong></li>
+<li>11.4 图像/视频小模型：NSFW/LOGO/水印/模糊/重复</li>
+<li>11.5 3D 小模型：几何异常/拓扑缺陷</li>
+<li>11.6 级联过滤与阈值回放（ROC/成本）</li>
+</ul>
+<h3 id="chapter12md-iphi3">[chapter12.md] 合成数据 I：<strong>教科书式文本/指令</strong>（Phi‑3 风格）</h3>
+<ul>
+<li>12.1 课程‑章‑节蓝图与知识网格 <strong>[W6]</strong></li>
+<li>12.2 规则化生成模板与验证器</li>
+<li>12.3 难度爬坡与思维链/工具使用信号</li>
+<li>12.4 防泄露与数据去重（对真实集）</li>
+</ul>
+<h3 id="chapter13md-ii">[chapter13.md] 合成数据 II：<strong>音频/语音</strong></h3>
+<ul>
+<li>13.1 TTS 合成策略：多说话人/情感/语速/口音（含<strong>方言 + IPA</strong>）</li>
+<li>13.2 文本→音频→ASR 回译闭环一致性</li>
+<li>13.3 说话人与内容水印/指纹</li>
+<li>13.4 语音指令与对话模板库</li>
+</ul>
+<h3 id="chapter14md-iii-vla-agentic-rl-selfplay">[chapter14.md] 合成数据 III：<strong>视频与 VLA 自博弈</strong>（Agentic RL Self‑Play）</h3>
+<ul>
+<li>14.1 环境/模拟器接口与任务库（支持多摄渲染与遮挡）</li>
+<li>14.2 轨迹‑文本‑动作三元组生成</li>
+<li>14.3 失败案例挖掘与 Curriculum</li>
+<li>14.4 质量评估与回放筛查 <strong>[W7]</strong></li>
+</ul>
+<h3 id="chapter15md-tokenizer-3d">[chapter15.md] <strong>Tokenizer 设计</strong>：文本/音频/视频/图像/3D</h3>
+<ul>
+<li>15.1 文本：<strong>Qwen tokenizer</strong> + 多模扩词表</li>
+<li>15.2 音频：神经编解码离散化（codec）+ <strong>IPA 辅助 token 层</strong></li>
+<li>15.3 图像/视频：Patch/Tubelet/视觉码本（VQ‑<em>），</em><em>6‑camera 时序/相机位姿标记</em>*</li>
+<li>15.4 3D：<strong>程序化几何/脚本语言的 token 化</strong> → X3D 文本 → .obj 标记</li>
+<li>15.5 <strong>连续特征兼容</strong>：跨模态投影器与混合输入通道</li>
+<li>15.6 词表增长与对齐标记设计</li>
+</ul>
+<h3 id="chapter16md-showo-transfusion">[chapter16.md] 生成‑理解一体架构沿革（自 <strong>Show‑O / Transfusion</strong> 起）</h3>
+<ul>
+<li>16.1 <strong>里程碑纵览</strong>：Show‑O、Transfusion 到近年的统一生成‑理解趋势（多模与视频优先）</li>
+<li>16.2 <strong>目标函数谱系</strong>：自回归（AR）/扩散（Diffusion）/流匹配（Flow‑Matching）/掩码生成（MGM）与混合训练</li>
+<li>16.3 <strong>干路与分支</strong>：共享主干 vs. 双干路（视觉/语言）+ 交叉注意力；早期融合 vs. 晚期融合</li>
+<li>16.4 <strong>离散化与连续特征</strong>：VQ/Codec‑LM、潜空间扩散与<strong>连续特征兼容</strong>（与本书第15章呼应）</li>
+<li>16.5 <strong>推理统一</strong>：生成与判别的共形解码；指导/约束（CFG、控制信号）与动作头协同</li>
+<li>16.6 <strong>多摄/视频特化</strong>：非对称编码、相机位姿/时间戳嵌入与记忆缓存</li>
+<li>16.7 <strong>训练策略</strong>：任务交替、多任务采样、蒸馏桥接（判别→生成/生成→理解）</li>
+<li>16.8 <strong>工程折中</strong>：吞吐、显存、通信与 MoE‑路由成本</li>
+<li>16.9 <strong>对本书方案的启示</strong>：为何选 <strong>Qwen‑式 AR 主干 + 先进 MoE + 早期融合</strong>；何处预留与扩散/流匹配的接口</li>
+<li>16.10 <strong>未解问题与研究清单</strong>：可扩展对齐、长时程一致性、跨模态因果性</li>
+</ul>
+<h3 id="chapter17md-qwen-transformerdense-moe">[chapter17.md] 模型架构：<strong>Qwen‑式自回归 Transformer</strong>（Dense / <strong>先进 MoE</strong>，早期融合）</h3>
+<ul>
+<li>17.1 1B/10B 结构参数：深度/宽度/头数/FFN 比例 <strong>[W7]</strong></li>
+<li>17.2 多模投影器与早期融合拓扑（相机位姿/时间戳嵌入）</li>
+<li>17.3 <strong>先进 MoE</strong>：专家分组、Top‑k 路由、负载均衡与专家并行（10B 为主）</li>
+<li>17.4 上下文长度与位置编码（旋转/相对）</li>
+<li>17.5 动作空间与控制头（VLA head）</li>
+<li>17.6 正则化与稳定性（RMSNorm、Dropout、激活）</li>
+</ul>
+<h3 id="chapter18md-megatron-on-256h100">[chapter18.md] 训练基建：<strong>Megatron on 256×H100</strong></h3>
+<ul>
+<li>18.1 并行切分：TP/PP/DP/专家并行与拓扑映射</li>
+<li>18.2 通信栈与 NVLink/NVSwitch/IB 配置</li>
+<li>18.3 <strong>IO 与数据加载</strong>：WebDataset/索引化 tar/缓存层</li>
+<li>18.4 <strong>存储与搬运</strong>：对象存储、分层缓存、吞吐预算（<strong>多摄 480p@12 Hz 视频优先级</strong>） <strong>[W8]</strong></li>
+<li>18.5 Mixed Precision：<strong>FP8 主干 + BF16 优化器</strong>（TransformerEngine 配置）</li>
+<li>18.6 容错、检查点与重启策略</li>
+</ul>
+<h3 id="chapter19md-1b-10b">[chapter19.md] 训练配方：从 <strong>1B 到 10B</strong> 的生产级方案</h3>
+<ul>
+<li>19.1 学习率/批尺寸/采样调度（cosine/one‑cycle）</li>
+<li>19.2 长序列/多模序列打包与高效填充（多摄时间对齐）</li>
+<li>19.3 数据混合温度与阶段化（Cold→Mid→Hot）</li>
+<li>19.4 正负样本与 InfoNCE/CE 混合损失（多模）</li>
+<li>19.5 吞吐建模与算力‑时长预算 <strong>[W9]</strong></li>
+<li>19.6 <strong>1B Dense</strong> 端到端基线复现实验 <strong>[W10]</strong></li>
+<li>19.7 <strong>10B 先进 MoE</strong> 主训练与监控面板 <strong>[W12–W18]</strong></li>
+</ul>
+<h3 id="chapter20md-gemma-logits">[chapter20.md] 蒸馏与教师：<strong>Gemma‑式 logits 蒸馏</strong> 等</h3>
+<ul>
+<li>20.1 蒸馏任务与温度/遮罩</li>
+<li>20.2 知识转移到多模头（视觉/音频/3D/行动）</li>
+<li>20.3 稳定性与蒸馏‑正则的权衡</li>
+<li>20.4 蒸馏数据的采样与合规 <strong>[W19]</strong></li>
+</ul>
+<h3 id="chapter21md-instructionmidtraining">[chapter21.md] 对齐与中期训练（Instruction/Mid‑training/偏好）</h3>
+<ul>
+<li>21.1 指令数据构造与多模对话格式（含 IPA 与多摄标签）</li>
+<li>21.2 语音交互对齐：延迟/打断/唤醒词</li>
+<li>21.3 行动对齐：轨迹监督、开环离线指标</li>
+<li>21.4 轻量偏好优化与安全约束</li>
+</ul>
+<h3 id="chapter22md-vla">[chapter22.md] 评测与基准（多模/多语/VLA/驾驶/语音）</h3>
+<ul>
+<li>22.1 文本：理解/知识/代码/长上下文</li>
+<li>22.2 语音：ASR WER/TTS MOS/对话延迟（<strong>方言/少数语种 + IPA 层评测</strong>）</li>
+<li>22.3 视觉/视频：VQA/检索/时序定位（<strong>多摄融合</strong>）</li>
+<li>22.4 VLA：开环成功率、决策延迟、回放一致性</li>
+<li>22.5 自动驾驶：ADE/FDE、碰撞率、红灯违规等开环指标（多摄输入）</li>
+<li>22.6 3D：程序化几何一致性、X3D 解析鲁棒性、传统网格任务</li>
+<li>22.7 评测集防泄漏与计显著性 <strong>[W20–W22]</strong></li>
+</ul>
+<h3 id="chapter23md-mlops">[chapter23.md] 成本、运维与 MLOps</h3>
+<ul>
+<li>23.1 计算与能耗预算；碳足迹可观测</li>
+<li>23.2 <strong>视频存储/传输成本</strong> 明细与优化（按 <strong>6‑camera 480p@12 Hz</strong> 估算）</li>
+<li>23.3 训练监控：吞吐/显存/通信/掉速诊断</li>
+<li>23.4 日志与事件：数据‑到‑模型的可追溯</li>
+<li>23.5 回滚/再训练/增量数据接入 <strong>[W18–W26]</strong></li>
+</ul>
+<h3 id="chapter24md">[chapter24.md] 交付与复现</h3>
+<ul>
+<li>24.1 Checkpoint 结构与分片</li>
+<li>24.2 Tokenizer/词表发布与兼容层（含 IPA/程序化 3D 词表）</li>
+<li>24.3 推理样例与端到端 Demo（离线）</li>
+<li>24.4 复现脚本与配置矩阵 <strong>[W25]</strong></li>
+<li>24.5 版本与模型卡（模型来源、局限、合规声明） <strong>[W26]</strong></li>
+</ul>
+<h3 id="chapter25md">[chapter25.md] 安全、法律与合规</h3>
+<ul>
+<li>25.1 许可矩阵与使用场景限制</li>
+<li>25.2 PII/敏感内容治理与审计</li>
+<li>25.3 平台政策（如 YouTube Data API/robots）与缓存策略</li>
+<li>25.4 透明度与负责任 AI 报告</li>
+</ul>
+<h3 id="chapter26md">[chapter26.md] 项目管理与人员阵型</h3>
+<ul>
+<li>26.1 组织架构与角色分工：Data/Model/Infra/Eval/法务/PM/SRE</li>
+<li>26.2 团队规模与轮班：训练期间 7×24 值守</li>
+<li>26.3 周节奏与例会、风险墙与红线管理</li>
+<li>26.4 采购/预算/合同与里程碑对齐</li>
+<li>26.5 外部协作与开源治理</li>
+</ul>
+<h3 id="chapter27md">[chapter27.md] 常见陷阱与故障排查</h3>
+<ul>
+<li>27.1 训练不收敛/损失震荡</li>
+<li>27.2 通信瓶颈/显存碎片/数据打包</li>
+<li>27.3 评测“虚高”与数据泄漏</li>
+<li>27.4 跨模态时间对齐误差（<strong>多摄同步/漂移</strong>）</li>
+<li>27.5 过滤过严/过松的代价</li>
+</ul>
+<h3 id="appendixamd">[appendixA.md] 配置与脚本模板（可复制）</h3>
+<ul>
+<li>A.1 数据管道：抓取/索引/过滤/去重脚本骨架</li>
+<li>A.2 Tokenizer 训练与扩表配置（含 IPA 与程序化 3D 词表）</li>
+<li>A.3 Megatron 启动参数矩阵（TP/PP/DP/MoE；<strong>FP8 主干+BF16 优化器</strong>）</li>
+<li>A.4 监控仪表与告警规则</li>
+<li>A.5 评测清单与打分汇总表模板</li>
+</ul>
+<h3 id="appendixbmd">[appendixB.md] 术语表与符号约定</h3>
+<ul>
+<li>B.1 缩略词</li>
+<li>B.2 记号与单位</li>
+<li>B.3 指标与统计学约定</li>
+</ul>
+<hr />
+            </article>
+            
+            <nav class="page-nav"><a href="chapter1.html" class="nav-link next">[chapter1.md] 前言、范围与读者指南 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

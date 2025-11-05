@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>Tokenizer 设计：文本/音频/视频/图像/3D</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="tokenizer-3d">Tokenizer 设计：文本/音频/视频/图像/3D</h1>
+<h3 id="150">15.0 开篇段落</h3>
+<p>如果说模型架构是智能体的骨骼，海量数据是其赖以生存的血液，那么 Tokenizer 则是连接物理世界与抽象思维的<strong>神经系统</strong>。它的核心使命是将来自文本、音频、视觉、三维空间等形态各异、统计特性迥然不同的信息流，<strong>无损且高效地</strong>转化为一个统一的、离散化的“语言”——即 Token 序列。本章的目标是设计并论证一套能够支撑 Vision-Language-Action (VLA) 模型的、工业级的多模态 Tokenizer 方案。我们将深入探讨每种模态的离散化哲学与技术路径：从成熟的文本 BPE，到解耦内容与风格的神经音频编解码，再到处理自动驾驶场景下<strong>6摄480p@12Hz同步视频流</strong>的挑战，以及如何以“代码即思想”的理念处理程序化 3D 数据。最终，我们将构建一个融合了离散 Token ID 与连续特征投影的混合输入管道，它不仅是后续自回归 Transformer 训练的基石，更直接决定了模型感知、理解和生成能力的上限。</p>
+<h3 id="151-qwen-tokenizer">15.1 文本：Qwen Tokenizer + 多模态扩词表</h3>
+<p>文本是连接所有模态的语义中枢，一个高质量的文本 Tokenizer 是整个系统的锚点。我们选择一个在多语言、多领域（特别是代码）上经过大规模验证的 Tokenizer 作为基座，并通过“词表扩充”策略，为其注入理解和组织多模态信息流的“语法”。</p>
+<ol>
+<li><strong>基座选择：为什么是 Qwen Tokenizer？</strong></li>
+</ol>
+<ul>
+<li><strong>大规模多语言词表</strong>：Qwen 的 Tokenizer 拥有约 15W 的词表规模，远超 Llama 等模型的 32K。这使得它在处理中英文（我们 90% 的数据构成）时能达到更高的压缩率，即用更少的 Token 示相同的信息。这对在有限上下文窗口内处理长视频和代码至关重要。</li>
+<li><strong>代码与数字优化</strong>：其 BPE 算法对代码和数字进行了特殊优化，这对于 VLA 场景中的动作指令（常以 JSON 或代码片段形式出现）以及 3D 建模脚本的 Tokenize 非常友好。</li>
+<li><strong>成熟生态与稳定性</strong>：作为一个广泛应用的基座，其健壮性和社区支持可以减少我们项目中的不确定性。</li>
+</ul>
+<ol start="2">
+<li><strong>扩展示略：定义多模态的“元语言”</strong></li>
+</ol>
+<p>我们不重新训练 BPE，而是采用<strong>冻结基座、添加特殊 Token</strong>的策略。这既能完全继承基座模型的语言能力，又能以最小代价引入新功能。这些特殊 Token 构成了模型解析复杂多模态输入的“语法规则”。</p>
+<p><strong>特殊 Token 分类与设计哲学</strong>：</p>
+<p>| 类别 | 示例 Token | 设计目的与应用 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">类别</th>
+<th style="text-align: left;">示例 Token</th>
+<th style="text-align: left;">设计目的与应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>模态边界</strong></td>
+<td style="text-align: left;"><code>&lt;\|image_start\|&gt;</code>, <code>&lt;\|video_end\|&gt;</code>, <code>&lt;\|audio_start\|&gt;</code></td>
+<td style="text-align: left;"><strong>显式信令</strong>：清晰地告知模不同模态数据的起止边界，是处理交错模态序列的基础。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>结构/语义</strong></td>
+<td style="text-align: left;"><code>&lt;\|thought\|&gt;</code>, <code>&lt;\|observation\|&gt;</code>, <code>&lt;\|action\|&gt;</code></td>
+<td style="text-align: left;"><strong>思维链与 VLA 结构</strong>：引导模型生成可解释的中间推理步骤（thought），并严格区分环境观察（observation）与模型决策（action）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>元数据标记</strong></td>
+<td style="text-align: left;"><code>&lt;\|cam_front_center\|&gt;</code>, <code>&lt;\|timestamp_delta:0.083s\|&gt;</code></td>
+<td style="text-align: left;"><strong>时空锚定</strong>：为每个数据片段打上时空标签。这对于自动驾驶中理解多摄视角关系和时序依赖是<strong>不可或缺</strong>的。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>辅助信息</strong></td>
+<td style="text-align: left;"><code>&lt;\|ipa_start\|&gt;</code>, <code>&lt;\|ipa_end\|&gt;</code></td>
+<td style="text-align: left;"><strong>增强表示</strong>：为特定模态（如音频）引入辅助的、更底层的表示，帮助模型进行更细粒度的理解和生成。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一个更复杂的 VLA 场景示例</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;|</span><span class="k">user</span><span class="o">|&gt;</span>
+<span class="n">回放一下刚才左侧有车辆切入的片段</span><span class="err">，</span><span class="n">并用语音解释危险点</span><span class="err">。</span>
+<span class="o">&lt;|</span><span class="n">assistant</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">thought</span><span class="o">|&gt;</span>
+<span class="n">用户请求回放特定事件并进行语音解释</span><span class="err">。</span><span class="n">步骤</span><span class="err">：</span><span class="mf">1.</span><span class="w"> </span><span class="n">定位事件时间戳2</span><span class="p">.</span><span class="w"> </span><span class="n">提取相关多摄视频片段</span><span class="err">。</span><span class="mf">3.</span><span class="w"> </span><span class="n">生成解释文本</span><span class="err">。</span><span class="mf">4.</span><span class="w"> </span><span class="n">将文本合成为语音</span><span class="err">。</span><span class="mf">5.</span><span class="w"> </span><span class="n">输出视频和音频</span><span class="err">。</span>
+<span class="o">&lt;|</span><span class="n">thought_end</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">observation</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">video_start</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">timestamp_1678886400</span><span class="mf">.100</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">cam_left_front</span><span class="o">|&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">VID_TOK_1</span><span class="o">]</span><span class="p">...</span><span class="o">[</span><span class="n">VID_TOK_256</span><span class="o">]</span>
+<span class="o">&lt;|</span><span class="n">cam_left_rear</span><span class="o">|&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">VID_TOK_1</span><span class="o">]</span><span class="p">...</span><span class="o">[</span><span class="n">VID_TOK_256</span><span class="o">]</span>
+<span class="p">...</span>
+<span class="o">&lt;|</span><span class="n">timestamp_1678886400</span><span class="mf">.183</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">cam_left_front</span><span class="o">|&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">VID_TOK_257</span><span class="o">]</span><span class="p">...</span><span class="o">[</span><span class="n">VID_TOK_512</span><span class="o">]</span>
+<span class="p">...</span>
+<span class="o">&lt;|</span><span class="n">video_end</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">audio_start</span><span class="o">|&gt;</span>
+<span class="o">&lt;|</span><span class="n">ipa_start</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ðɪs</span><span class="w"> </span><span class="n">ɪz</span><span class="p">...</span><span class="w"> </span><span class="o">&lt;|</span><span class="n">ipa_end</span><span class="o">|&gt;</span>
+<span class="o">[</span><span class="n">AUD_CODEC_TOK_1</span><span class="o">]</span><span class="p">...</span><span class="o">[</span><span class="n">AUD_CODEC_TOK_M</span><span class="o">]</span>
+<span class="o">&lt;|</span><span class="n">audio_end</span><span class="o">|&gt;</span>
+</code></pre></div>
+
+<p><strong>Rule-of-thumb</strong>：</p>
+<ul>
+<li><strong>数量控制</strong>：新增特殊 Token 总数建议控制在 512 以内。过多的特殊 Token 会稀疏化嵌入空间，并略微增加 Softmax 计算的负担。</li>
+<li><strong>初始化策略</strong>：在 <code>model.resize_token_embeddings()</code> 后，新增 Token 的 embedding 向量应使用原词表中语义相近的 Token embedding 或所有向量的均值进行初始化，而不是随机初始化，这有助于加速新 Token 的学习。</li>
+<li><strong>避免冲突</strong>：确保特殊 Token 的字符串表示在有训练数据中都不会自然出现，防止歧义。</li>
+</ul>
+<h3 id="152-codec-ipa-token">15.2 音频：神经编解码离散化（Codec）+ IPA 辅助 Token 层</h3>
+<p>音频作为一种高频连续波形，其 Tokenization 的核心挑战在于<strong>信息压缩</strong>与<strong>特征解耦</strong>。我们采用一种双轨并行的策略，将音频流分解为“说什么”（内容）和“怎么说”（风格）两部分。</p>
+<ol>
+<li><strong>主干表示：神经音频编解码器 (Neural Audio Codec)</strong></li>
+</ol>
+<ul>
+<li><strong>原理</strong>：我们采用基于 VQ-VAE 架构的预训练音频编解码器，如 EnCodec 或 SoundStream。这类模型通过一个卷积编码器将一小段音频波形（例如，约 20ms）压缩成一个低维度的隐向量，然后通过向量量化（Vector Quantization）模块，找到码本（Codebook）中与该隐向量最接近的码元（Code），输出其离散的索引 ID。这个过程类似于为“声音的笔画”建立了一本字典。</li>
+<li><strong>信息瓶颈</strong>：这个“编码-量化-解码”的过程构成了一个<strong>信息瓶颈 (Information Bottleneck)</strong>，迫使模型学习到音频中最具代表性的声学特征，而忽略掉冗余的噪声。</li>
+<li><strong>多码本结构</strong>：先进的 Codec 通常采用残差量化（Residual VQ），即使用多个码本。第一个码本捕捉主要信息，后续码本依次对前者的量化残差进行编码。这允许在码率（每秒生成的 Token 数）和重建质量之间灵活权衡。</li>
+</ul>
+<p>$$
+\text{Audio Clip} \xrightarrow{\text{Encoder}} \mathbf{z} \xrightarrow{\text{RVQ}} (\mathbf{c}_1, \mathbf{c}_2, ..., \mathbf{c}_K) \rightarrow (\text{ID}_1, \text{ID}_2, ..., \text{ID}_K)
+$$</p>
+<ol start="2">
+<li><strong>辅助表示：国际音标 (IPA)</strong></li>
+</ol>
+<ul>
+<li><strong>价值</strong>：IPA 是语音学的黄金标准，它提供了一种<strong>跨语言、跨口音</strong>的音素级别表示。对于我们的模型，引入 IPA 有三大好处：<ol>
+<li><strong>鲁棒性</strong>：处理方言、少数语种和外语口音时，即使 ASR 转写的文本有误，正确的 IPA 序列也能为模型提供稳定的发音基础。</li>
+<li><strong>可控性</strong>：在成任务（TTS）中，可以直接编辑 IPA 序列来精确控制发音，实现“指哪读哪”。</li>
+<li><strong>数据增强</strong>：对于只有文本没有音频的数据，我们可以用 TTS 系统生成音频及其对应的 IPA，创造出高质量的（文本，IPA，音频 Codec）三元组数据。</li>
+</ol>
+</li>
+</ul>
+<p><strong>输入格式的协同工作</strong>：</p>
+<div class="codehilite"><pre><span></span><code>                  ┌──────────────────┐
+                  │ Raw Audio Wave   │
+                  └────────┬─────────┘
+                           │
+           ┌───────────────┴───────────────┐
+           ▼                               ▼
+┌──────────────────┐             ┌──────────────────┐
+│  ASR + IPA Tagger│             │ Neural Audio Codec │
+└──────────────────┘             └─────────────────┘
+           │                               │
+           ▼                               ▼
+┌──────────────────┐             ┌──────────────────┐
+│ IPA Tokens       │             │ Codec Tokens     │
+│ e.g., &lt;ipa&gt;hɛloʊ&lt;ipa&gt;│             │ e.g., [10,73,4]... │
+└────────┬─────────┘             └────────┬─────────┘
+           │                               │
+           └───────────────┬───────────────┘
+                           ▼
+                 ┌──────────────────┐
+                 │ Model Input      │
+                 └──────────────────┘
+</code></pre></div>
+
+<p><strong>Rule-of-thumb</strong>：</p>
+<ul>
+<li><strong>码率预算</strong>：假设使用 EnCodec，目标宽 6kbps，对应 75Hz 帧率和 8 个码本。一分钟的音频将产生 <code>75 * 8 * 60 = 36,000</code> 个 Token。这必须计入序列长度预算。对于非关键的背景音，可以降低码率（减少码本数）来节省长度。</li>
+<li><strong>对齐方案</strong>：IPA Token 序列通常比 Codec Token 序列短得多。在打包输入时，可以通过简单的重复或使用特殊的位置编码来将它们在时间上对齐。</li>
+</ul>
+<h3 id="153-vq-ganvae">15.3 图像/视频：VQ-GAN/VAE、时空标记与数据流预算</h3>
+<p>视觉信息是自动驾驶和具身智能的核心。其 Tokenization 面临着<strong>维度诅咒</strong>（高分辨率、多摄像头、高帧率）和<strong>时空一致性</strong>两大挑战。</p>
+<ol>
+<li><strong>离散化 vs. 连续特征：一个关键的架构抉择</strong></li>
+</ol>
+<ul>
+<li><strong>方案 A：连续特征 + 投影器 (Projector)</strong>：使用一个强大的预训练视觉编码器（如 ViT-22B, EVA-CLIP）提取图像/视频 Patch 的特征向量，然后通过一个小型 MLP 投影到 LLM 的词嵌入空间。<ul>
+<li><strong>优点</strong>：实现简单，能充分利用现有SOTA视觉模型的强大能力，推理速度快。</li>
+<li><strong>缺点</strong>：对于 LLM 来说，这些投影后的 embedding 是“不透明”的黑箱。模型很难对其进行细粒度的推理、编辑或自回归地“逐像素”生成。这与我们的“生成-理解一体”目标相悖。</li>
+</ul>
+</li>
+<li><strong>方案 B：视觉码本 (Visual Codebook)</strong>：训练一个类似 VQ-VAE 或 VQ-GAN 的模型，它能将图像 Patch 编码为离散的 Token ID。<ul>
+<li><strong>优点</strong>：将图像“翻译”成了 LLM 的母语——离散 Token。这使得模型可以像处理文本一样处理图像，实现 in-context 学习、编辑和高质量的自回归生成。</li>
+<li><strong>缺点</strong>：需要额外训练一个高质量的视觉 Tokenizer，且重建质量和语义保真度是关键挑战。</li>
+</ul>
+</li>
+</ul>
+<p><strong>我们的选择</strong>：<strong>以方案 B 为主，方案 A 为辅</strong>。主体视觉信息流采用 VQ-GAN 离散化，以赋能生成能力。而一些动态的、高精度的元数据（如精确的相机外参、IMU 读数）则通过投影器作为连续特征注入。</p>
+<ol start="2">
+<li><strong>应对 6-camera 480p@12Hz 的数据洪流</strong></li>
+</ol>
+<p>让我们量化挑战：</p>
+<ul>
+<li>单帧分辨率：<code>640x480</code> (标准 4:3 的 480p)</li>
+<li>Patch 大小：<code>16x16</code></li>
+<li>单帧 Patch 数：<code>(640/16) * (480/16) = 40 * 30 = 1200</code></li>
+<li>单时间步（所有摄像头）Patch 数：<code>1200 * 6 = 7200</code></li>
+<li>每秒 Patch 数：<code>7200 * 12 Hz = 86,400</code></li>
+</ul>
+<p>直接将这些 Patch 输入 LLM 是<strong>绝对不可行</strong>的。解决方案是引入一个强大的<strong>时空视觉编码器</strong>作为预处理器：</p>
+<ol>
+<li><strong>空间压缩</strong>：该编码器首先对每个摄像头的 1200 个 Patch 进行编码，输出更少的、但信息更密集的特征向量（例如，通过 Attention Pooling 或 Resampling，降到 256 个向量）。</li>
+<li><strong>时间压缩</strong>：可以进一步对时间维度进行压缩，例如，将 12Hz 的帧输入编码器，但只在 3Hz 的频率上输出 Token。</li>
+<li><strong>离散化</strong>：最后，将这些压缩后的时空特征向量送入 VQ 模块，得到最终的视觉 Token 序列。</li>
+</ol>
+<p><strong>Rule-of-thumb</strong>：</p>
+<ul>
+<li><strong>视觉 Token 预算</strong>：经过上述压缩，一个合理的目标是将每秒的 86,400 个原始 Patch 转化为 1000-2000 个视觉 Token。这个数量级才能在数万的上下文窗口中表示几秒到十几秒的驾驶场景。</li>
+<li><strong>相机位姿嵌入</strong>：不要将相机内外参文本化。更好的方法是将其转换为一个紧凑的向量（例如，用一个小型 MLP 处理四元数和平移向量），然后作为一个特殊的<strong>连续特征</strong>嵌入到 Token 序列的开头，为该摄像头的视觉 Token 提供空间上下文。</li>
+</ul>
+<h3 id="154-3d">15.4 3D：程序化优先，结构化次之，网格回落</h3>
+<p>3D 数据的 Tokenization 哲学是：<strong>尽可能在高的抽象层次上进行操作，最大化利用语言模型的代码和逻辑推理能力</strong>。</p>
+<ol>
+<li>
+<p><strong>最高优先级：程序化几何/脚本 (Blender/CAD DSL)</strong>
+*   <strong>理念</strong>：一个 3D 模型不仅仅是点和面的集合，更是创造它的<strong>意图和过程</strong>的体现。将其表示为生成它的码（例如 Blender Python 脚本），是从根本上拥抱了“生成模型”的思想。
+*   <strong>Tokenization</strong>：直接应用我们的 Qwen 文本 Tokenizer。模型学习的不是像素或顶点，而是 <code>create_cube</code>, <code>extrude</code>, <code>apply_material</code> 等构成 3D 世界的“动词”和“名词”。
+*   <strong>优势</strong>：极高的信息压缩率、天然的可编辑性、以及与人类设计师思维过程的一致性。</p>
+</li>
+<li>
+<p><strong>次优先级：X3D 等结构化文本格式</strong>
+*   <strong>理念</strong>：当无法获得生成脚本时，退而求其次选择能够描述场景结构和语义的格式。X3D/VRML 就像 3D 世界的 HTML，它用层级化的节点和属性来定义场景。
+*   <strong>Tokenization</strong>：同样是文本 Tokenizer。模型学习解析和生成这种具有清晰语法的结构化文本。</p>
+</li>
+<li>
+<p><strong>回落方案：.obj 等传统网格格式</strong>
+*   <strong>挑战</strong>：.obj 是一种“扁平”的格式，只包含顶点坐标和面索引，丢失了所有高层语义。直接处理浮点数对 LLM 也不友好。
+*   <strong>Tokenization 策略</strong>：</p>
+<ol>
+<li><strong>量化</strong>：将所有顶点坐标归一化到 <code>[-1, 1]</code> 区间，然后进行量化，例如量化到 1000 个 bin。每个 bin 对应一个专门的数字 Token。</li>
+<li><strong>序列化</strong>：将 .obj 文件转换为一种特殊的语言格式：
+    <code>&lt;|3d_obj_start|&gt; &lt;|v|&gt; [TOK_512] [TOK_101] [TOK_833] &lt;|v|&gt; ... &lt;|f|&gt; [IDX_1] [IDX_2] [IDX_3] &lt;|f|&gt; ... &lt;|3d_obj_end|&gt;</code>
+    其中，<code>[TOK_X]</code> 是量化后的坐标 Token，<code>[IDX_Y]</code> 是顶点索引 Token。</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><strong>代价</strong>：序列长度极长，且模型需要从零开始学习基础的几何概念，效率远低于前两种方案。</li>
+</ul>
+<p><strong>Rule-of-thumb</strong>：</p>
+<ul>
+<li>在数据收集中，应不惜代价优先获取或逆向工程出 3D 模型的程序化表示。一个 1MB 的 .obj 文件可能需要数万个 Token 来表示，而生成它的 Python 脚本可能只需要几百个 Token。</li>
+</ul>
+<h3 id="155">15.5 连续特征兼容：作为“外挂”的通用投影器</h3>
+<p>尽管我们的核心是离散 Token，但系统必须有一个优的机制来接入无法或不适合离散化的连续特征。<strong>跨模态投影器 (Cross-modal Projector)</strong> 就是这个通用接口。</p>
+<ul>
+<li>
+<p><strong>架构</strong>：通常是一个轻量的 MLP 或几层 Transformer Encoder。它的输入是任意维度的外部特征向量（如 IMU 6轴读数、CAN 总线车速、相机焦距等），输出是符合 LLM 内部维度的 embedding 向量。
+    $$ \mathbf{e}_{\text{proj}} = \text{LayerNorm}(\text{MLP}(\mathbf{v}_{\text{in}})) \quad \text{where} \quad \mathbf{v}_{\text{in}} \in \mathbb{R}^{d_{\text{in}}}, \mathbf{e}_{\text{proj}} \in \mathbb{R}^{d_{\text{model}}} $$</p>
+</li>
+<li>
+<p><strong>混合输入序列</strong>：模型的第一层 Transformer 看到的输入将是一个混合序列，其中既有通过 Token ID 从 embedding table 中查出的向量，也有通过投影器实时计算出的向量。</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>                                            ┌────────────────────┐
+                                            │ Special Continuous │
+                                            │ Feature Tokens     │
+                                            └────────┬───────────┘
+                                                     │ Projector
+                                                     ▼
+┌────────────┐   Embedding   ┌────────────────┐  ┌────────────────┐
+│ Token IDs  ├─────────────► │ Token          ├─┐│ Fused          │
+│(Text, VQ, │     Table     │ Embeddings     │ └►│ Input Sequence │
+│ Codec...)  │               └────────────────┘   │                ├─► Transformer
+└────────────┘                                     └────────────────┘
+</code></pre></div>
+
+<h3 id="156">15.6 最终词表与对齐设计</h3>
+<p>我们的多模态词汇系统是一精心设计的复合体：</p>
+<p>| 类别 | 来源/技术 | 规模估算 | 作用 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">类别</th>
+<th style="text-align: left;">来源/技术</th>
+<th style="text-align: left;">规模估算</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>基础文本</strong></td>
+<td style="text-align: left;">Qwen BPE</td>
+<td style="text-align: left;">~150,000</td>
+<td style="text-align: left;">提供强大的核心语言能力（中/英/代码）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>控制/元数据</strong></td>
+<td style="text-align: left;">手动添加</td>
+<td style="text-align: left;">~512</td>
+<td style="text-align: left;">作为多模态序列的“语法”和“标点”，组织信息流。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>音素 (IPA)</strong></td>
+<td style="text-align: left;">标准 IPA Chart</td>
+<td style="text-align: left;">~200</td>
+<td style="text-align: left;">提供与口音/语种无关的底层发音表示。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>视觉码本</strong></td>
+<td style="text-align: left;">VQ-GAN 训练</td>
+<td style="text-align: left;">8,192 - 16,384</td>
+<td style="text-align: left;">图像和视频的离散化“像素”词汇。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>音频码本</strong></td>
+<td style="text-align: left;">EnCodec (RVQ)</td>
+<td style="text-align: left;">8 codebooks * 1024/codebook = 8,192</td>
+<td style="text-align: left;">音频波形的离散化声学基元词汇。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3D 数字量化</strong></td>
+<td style="text-align: left;">手动添加</td>
+<td style="text-align: left;">~1,024</td>
+<td style="text-align: left;">用于 .obj 方案中量化坐标值。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>总计 (估算)</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>~180,000</strong></td>
+<td style="text-align: left;">一个庞大但结构清晰的多模态统一词表。</td>
+</tr>
+</tbody>
+</table>
+<p>这些设计共同确保了来自不同源头的信息流能够在一个统一的框架下被对齐、理解和生成，为构建一个真正的通用 VLA 模型奠定坚实的基础。</p>
+<h3 id="_1">本章小结</h3>
+<p>本章，我们从第一性原理出发，为 VLA 多模态大模型设计了一套全面而深入的 Tokenizer 方案。我们确立了<strong>万物序列化</strong>的核心思想，并为每种模态制定了兼顾信息保真度、压缩效率和模型亲和度的策略。</p>
+<ul>
+<li><strong>统一与分治</strong>：通过扩充特殊 Token 的文本 Tokenizer 实现了对多模态流的统一调度，同时为各模态设计了专门的离散化方案（神经 Codec、VQ-GAN、程序化表示）。</li>
+<li><strong>内容与风格解耦</strong>：在音频处理中引入 IPA，实现了内容（音素）与风格（音色、韵律）的分离，增强了模型的鲁棒性和生成的可控性。</li>
+<li><strong>抽象层次优先</strong>：在 3D 处理中，我们建立了“程序化 &gt; 结构化 &gt; 网格化”的明确优先级，旨在最大化利用 LLM 的逻辑推理能力。</li>
+<li><strong>预算与现实</strong>：我们量化了自动驾驶视频流带来的数据挑战，并提出了基于时空编码器的压缩策略来管理列长度预算。</li>
+<li><strong>开放与兼容</strong>：通过通用投影器机制，为系统保留了接入任意连续特征的“即插即用”能力，确保了未来的可扩展性。</li>
+</ul>
+<p>这套 Tokenizer 不仅仅是一个预处理工具，它本身就是模型世界观的一部分，是我们将物理世界的复杂性映射到模型可理解的符号空间的第一步，也是最关键的一步。</p>
+<h3 id="gotchas">常见陷阱与错误 (Gotchas)</h3>
+<ol>
+<li>
+<p><strong>Tokenizer 版本不一致 (The Silent Killer)</strong>：在分布式训练、离线数据处理和在线推理等多个环节中，使用了哪怕有细微差异的 Tokenizer 版本（例如，特殊 Token 的 ID 顺序不同），都会导致模型行为异常且极难调试。<strong>解决方案</strong>：将 Tokenizer 的配置文件（<code>tokenizer.model</code>, <code>special_tokens_map.json</code> 等）作为核心资产进行严格的版本控制（如 Git LFS），并在每次任务启动时强制校验其哈希值。</p>
+</li>
+<li>
+<p><strong>视觉 Token 质量差导致“视觉退化”</strong>：如果用于离散化的 VQ-GAN/VAE 模型训练不佳，重建的图像模糊或失真，那么 LLM 接收到的就是“损坏”的视觉信息。它可能会学会忽略这些不可靠的视觉 Token，退化为一个纯文本模型。<strong>解决方案</strong>：在主模型训练前，对视觉 Tokenizer 进行独立的、严格的评测，确保其重建质量（PSNR, SSIM）和感知质量（LPIPS）达到高标准。</p>
+</li>
+<li>
+<p><strong>上下文长度被低价值信息占满</strong>：在自动驾驶场景中，大部分视频帧可能是重复的（如等红灯）。如果不对视频流进行智能采样或压缩，这些冗余信息会迅速占满宝贵的上下文窗口，挤掉关键的瞬时事件信息。<strong>解决方案</strong>：在数据预处理阶段引入场景变化检测或关键帧提取算法，对静态或低信息量的片段进行降采样，动态调整 Tokenization 的频率。</p>
+</li>
+<li>
+<p><strong>模态边界的“渗透”效应 (Bleeding Edge)</strong>：如果模型在训练时没能很好地学习模态边界 Token（如 <code>&lt;|video_start|&gt;</code>），在生时可能会出现“模态混淆”，例如在文本描述中突然插入了几个视觉 Token。<strong>解决方案</strong>：在数据构建时，确保边界 Token 的使用严格且一致。在损失函数设计上，可以考虑对边界 Token 的预测施加更高的权重，或者设计专门的辅助任务来强化模型对数据流结构的理解。</p>
+</li>
+<li>
+<p><strong>时间戳与物理世界脱节</strong>：错误地处理时间戳（例如，使用了相对时间戳但重置点不一致，或浮点数精度问题）会导致模型无法建立正确的时序因果链。对于自动驾驶，这可能是灾难性的。<strong>解决方案</strong>：使用统一的、高精度的绝对时间戳（如 Unix timestamp in microseconds）。在 Tokenization 时，可以将其量化为一个基准时间和若干个 delta 时间 Token，以在压缩率和精度之间取得平衡。</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter14.html" class="nav-link prev">← 第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</a><a href="chapter16.html" class="nav-link next">[chapter16.md] 生成‑理解一体架构沿革 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第五章 数据采集 I：网页文本与代码（合规）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="i">第五章 数据采集 I：网页文本与代码（合规）</h1>
+<h2 id="_1"><a href="index.html">返回目录</a></h2>
+<hr />
+<h3 id="_2"><strong>开篇段落</strong></h3>
+<p>如果说多模态大模型是通往通用人工智能的方舟，那么文本与代码就是这艘方舟的龙骨与神经网络。它们承载着人类积累的绝大部分知识、逻辑、文化与创造力，是模型建立世界模型（World Model）、理解复杂指令、进行高级推理的根本。本章将开启我们宏伟数据工程的第一步，深入探讨如何从浩瀚如烟的互联网中，以一种<strong>合规、高效、可扩展</strong>的方式，系统性地获取海量高质量的网页文本与源代码。我们将从顶层战略的“抓什么”（信源选择），到战术执行的“怎么抓”（框架与策略），再质量守门员的“如何筛”（初步清洗），覆盖全链路的核心实践。学习本章后，您将掌握为万亿（Trillion）级 token 规模的大模型项目奠定坚实、合规、高质量文本基座的全套方法论，并深刻理解在工业级规模下，平衡<strong>数据质量（Quality）、采集数量（Quantity）、法律合规（Compliance）与工程成本（Cost）</strong>这四大支柱的艺术。这项工作是 <strong>[W3]</strong> 里程碑——“数据配方（Data Recipe）初版冻结”——得以实现的技术前提。</p>
+<hr />
+<h3 id="_3"><strong>文字论述</strong></h3>
+<h4 id="51">5.1 目标域与白名单源：从“淘金”而非“滤沙”开始</h4>
+<p>在启动一个涉及数千万亿 token 的项目时，最危险的误区是认为“数据越多越好”，并采取“先污染后治理”的策略。全网无差别抓取（“喝干消防栓里的水”）会引入海量的噪声、偏见、毒性内容和法律风险，其后期治理成本将呈指数级增长，甚至可能拖垮整个项目。因此，们的核心数据哲学是：<strong>从源头开始，主动选择高质量信源（白名单策略），而非被动地从垃圾中过滤黄金。</strong></p>
+<ul>
+<li>
+<p><strong>为什么要坚定不移地执行白名单策略？</strong></p>
+<ul>
+<li><strong>信噪比的经济学</strong>：高质量信源（如 arXiv, Stack Overflow, Wikipedia）的信噪比极高。与其花费 100 个 GPU 小时去清洗 1TB 的低质数据，不如花费 1 个 GPU 小时处理 100GB 的高质数据。在我们的规模下，这种成本差异会被放大百万倍。</li>
+<li><strong>风险控制</strong>：白名单机制使得法务和合规团队可以对数据源进行前置审计，从根本上降低了版权侵权、违反服务条款（ToS）和隐私泄露的风险。</li>
+<li><strong>能力对齐</strong>：通过精选信源，我们可以主动塑造模型的“知识结构”和“价值观”。例如，想让模型擅长科学推理，就加大对学术论文、教科书和科学百科的权重；想让它精通代码，就聚焦于顶级开源项目和官方开发者文档。</li>
+</ul>
+</li>
+<li>
+<p><strong>构建与维护一个动态的“分级白名单”</strong>
+    一个有效的白名单不是一份静态列表，而是一个需要持续维护和迭代的动态系统。我们建议将其分为不同层级：</p>
+<ul>
+<li><strong>Tier 1 (黄金信源)</strong>: 顶级的、几乎无需清洗的信源。例如：维基百科、arXiv、PubMed、古登堡计划（Project Gutenberg）、各国政府与国际组织官网（.gov, .edu, .org）、主流编程语言的官方文档、Stack Exchange 核心站点。这些是数据配方中的“基础营养”。</li>
+<li><strong>Tier 2 (白银信源)</strong>: 内容质量较高，但可能混杂少量广告或低质内容。例如：信誉良好的技术博客、知名媒体、高质量的行业论坛、GitHub 上星标数较高的开源项目。这些数据需要经过更严格的过滤流程。</li>
+<li><strong>Tier 3 (青铜信源)</strong>: 覆盖面广，但质量参差不齐。例如：大型新闻聚合网站、广泛的社交媒体（需通过 API 合规获取）。这类信源主要用于获取更广的语言现象和常识知识，需要最强的清洗和去重策略，且采样比例应受严格控制。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>经验法则 (Rule-of-thumb):</strong>
+启动项目时，80% 的精力应投入到构建和扩充 Tier 1 和 Tier 2 的信源列表。这个列表本身就是项目最有价值的资产之一。应成立一个专门的“数据策展（Data Curation）”小组，成员包括 AI Scientist、工程师和领域专家，负责持续评估和更新这份名单。</p>
+</blockquote>
+<h4 id="52-api">5.2 官方 API / 开源语料与“别人已洗好的包”的接入策略</h4>
+<p>在自建抓取系统运转之前，聪明的团队会站在巨人的肩膀上。最大限度地利用现有的、结构化的、合规的数据通路是项目初期快速启动的关键。</p>
+<ul>
+<li>
+<p><strong>API 优先原则</strong>：始终将使用官方 API 作为获取特定平台数据的首选。</p>
+<ul>
+<li><strong>理由</strong>：这是平台方明确授权的数据使用方式，完全合规。数据通常是结构化的（如 JSON），省去了复杂的 HTML 解析步骤。并且，API 会明确告知速率限制，便于我们进行礼貌且可预测的访问。</li>
+<li><strong>行动项</strong>：为 Reddit、Stack Exchange、Twitter（现 X）、Wikipedia 等主要平台开发健壮的 API 客户端，内置重试、限流、错误处理逻辑，并严格遵守其开发者协议。</li>
+</ul>
+</li>
+<li>
+<p><strong>拥抱高质量开源语料</strong>：社区已经为我们准备了丰盛的“数据半成品”。</p>
+<ul>
+<li><strong>主要来源</strong>：RedPajama, SlimPajama, The Pile, C4, RefinedWeb 等项目已经完成了大规模的网页抓取、清洗和初步去重工作。</li>
+<li><strong>接入策略：“信任但验证” (Trust, but Verify)</strong><ol>
+<li><strong>全量下载与索引</strong>：将这些数据集视为我们的“上游依赖”。</li>
+<li><strong>强制二次清洗</strong>：绝不直接使用。必须将它们送入我们自建的、更严格的过滤和去重流水线（详见 5.5 和 5.6 节）。因为它们的清洗标准、去重粒度、PII 定义可能与我们的项目要求不符。</li>
+<li><strong>跨数据集去重</strong>：这是关键的一步。必须在我们自己抓取的数据、所有接入的开源数据包之间进行全局去重，避免模型在不同来源的相同内容上重复训练。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>决策矩阵：数据获取路径对比</strong></p>
+</li>
+</ul>
+<p>| 获取路径 | 优点 | 缺点 | 核心行动项 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">获取路径</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">缺点</th>
+<th style="text-align: left;">核心行动项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>官方 API</strong></td>
+<td style="text-align: left;">合规、结构化、高效、风险低</td>
+<td style="text-align: left;">覆盖范围有限、有严格速率限制</td>
+<td style="text-align: left;">开发专用适配器，管理 API 密钥</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>开源语料包</strong></td>
+<td style="text-align: left;">快速启动、节省大量前期抓取成本</td>
+<td style="text-align: left;">质量标准不一、可能包含“数据毒药”</td>
+<td style="text-align: left;">建立“信任但验证”的二次清洗与全局去重管道</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>自建爬虫</strong></td>
+<td style="text-align: left;">覆盖面最广、可控性最强</td>
+<td style="text-align: left;">工程复杂度高、法律风险最高、成本高昂</td>
+<td style="text-align: left;">严格执行白名单、合规抓取与精细化限流</td>
+</tr>
+</tbody>
+</table>
+<h4 id="53">5.3 抓取框架与高并发限流：构建尊重网络的“数据舰队”</h4>
+<p>对于白名单中无法通过 API 或开源包覆盖的信源，我们需要构建一个工业级的分布式抓系统。这个系统的核心设计理念是<strong>效率</strong>与<strong>礼貌</strong>并重。</p>
+<ul>
+<li><strong>框架的模块化设计</strong>
+    一个可扩展的抓取系统通常由以下解耦的微服务组成，通过消息队列（如 Kafka/Pulsar）和分布式 KV 存储（如 Redis/etcd）进行通信：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="nb">+-------------+</span><span class="c">   </span><span class="k">[</span><span class="c">URLs</span><span class="k">]</span><span class="c">   </span><span class="nb">+-----------+</span><span class="c">   </span><span class="k">[</span><span class="c">Fetch Tasks</span><span class="k">]</span><span class="c">   </span><span class="nb">+----------------+</span>
+<span class="c">| URL Manager | </span><span class="nb">---------</span><span class="nv">&gt;</span><span class="c"> | Scheduler | </span><span class="nb">---------------</span><span class="nv">&gt;</span><span class="c"> | Fetcher Fleet  |</span>
+<span class="c">| (Frontier)  |            </span><span class="nb">+-----------+</span><span class="c">                   | (Stateless)    |</span>
+<span class="nb">+-------------+</span><span class="c">                 ^                          </span><span class="nb">+-------+--------+</span>
+<span class="c">      ^                         |                                  | </span><span class="k">[</span><span class="c">Raw HTML</span><span class="k">]</span>
+<span class="c">      | </span><span class="k">[</span><span class="c">New URLs</span><span class="k">]</span><span class="c">              | </span><span class="k">[</span><span class="c">Task Ack</span><span class="k">]</span><span class="c">                         v</span>
+<span class="c">      |                         |                          </span><span class="nb">+-------+--------+</span>
+<span class="nb">+-------------+</span><span class="c">   </span><span class="k">[</span><span class="c">Parsed</span><span class="k">]</span><span class="c">  </span><span class="nb">+-----------+</span><span class="c">                  |  Parser Fleet  |</span>
+<span class="c">|  Storage    | </span><span class="nv">&lt;</span><span class="nb">---------</span><span class="c">  |  Parser   | </span><span class="nv">&lt;</span><span class="nb">----------------+</span><span class="c">  (Stateless)   |</span>
+<span class="c">| (Object/DB) |             </span><span class="nb">+-----------+</span><span class="c">                                  |</span>
+<span class="nb">+-------------+</span><span class="c">                                                            |</span>
+<span class="c">      | </span><span class="k">[</span><span class="c">Content Hash</span><span class="k">]</span><span class="c">                                                     |</span>
+<span class="c">      </span><span class="nb">+--------------------------------------------------------------------+</span>
+<span class="c">                                  (反馈给 URL Manager 用于去重)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">*</span>   **URL Manager (Frontier)**: 维护待抓取 URL 队列，处理 URL 去重、优先级排序。
+<span class="k">*</span>   **Scheduler**: 核心调度器，根据各域名的限流策略，从 Frontier 取出 URL，生成抓取任务并推送到消息队列。
+<span class="k">*</span>   **Fetcher Fleet**: 大量无状态的下载服务实例，从消息队列消费任务，执行 HTTP 请求，并处理重定向、超时和错误。
+<span class="k">*</span>   **Parser Fleet**: 无状态的解析服务，从 Fetcher 获取的原始 HTML/XML 中提取正文、元数据和新的出站链接。
+<span class="k">*</span>   **Storage**: 将解析后的干净文本和元据持久化到对象存储（如 S3/Ceph）或分布式文件系统。
+</code></pre></div>
+
+<ul>
+<li>
+<p><strong>合规抓取的铁律 (The Ironclad Rules of Compliant Crawling)</strong></p>
+<ol>
+<li><strong><code>robots.txt</code> 是法律，不是建议</strong>：每个 Fetcher 在请求任何域名的任何资源前，<strong>必须</strong>检查并严格遵守该域名的 <code>robots.txt</code> 规则。这个逻辑应该是框架级的，无法被单个任务绕过。</li>
+<li><strong>透明的 <code>User-Agent</code></strong>：设置一个清晰、诚实的 <code>User-Agent</code>，例如 <code>MyProject-VLABot/1.0 (+http://www.myproject.ai/bot.html)</code>。这个 URL 应该指向一个页面，解释我们的项目、数据用途和联系方式。</li>
+<li><strong>尊重 <code>Crawl-delay</code></strong>：如果 <code>robots.txt</code> 中指定了 <code>Crawl-delay</code>，则以此作为两次请求间的最小间隔。</li>
+<li><strong>模拟人类行为</strong>：适当添加随机抖动（Jitter），避免过于规律的机器访问模式。发送标准的 <code>Accept</code>, <code>Accept-Language</code>, <code>Accept-Encoding</code> 头信息。</li>
+</ol>
+</li>
+<li>
+<p><strong>高并发与分布式限流 (High Concurrency &amp; Distributed Rate Limiting)</strong>
+    当你有成千上万个 Fetcher 实例时，如何确保对同一个域名（例如 <code>example.com</code>）的请求总和不超过设定的 QPS（Queries Per Second）？</p>
+<ul>
+<li><strong>中心化限流</strong>：使用像 Redis 这样的内存数据库来为每个域名维护一个令牌桶或漏桶。</li>
+<li><strong>工作流程</strong>：Fetcher 在请求 <code>example.com</code> 之前，先向 Redis 请求一个 <code>example.com</code> 的“令牌”。如果 Redis 中有令牌，则请求成功，Fetcher 继续；如果没有，则请求失败，Fetcher 等待一段时间后重试。Scheduler 也可参与决策，仅在预估有令牌时才分发任务。</li>
+<li><strong>动态调整</strong>：监控 HTTP 响应码。当某个域名频繁返回 <code>429 Too Many Requests</code> 或 <code>503 Service Unavailable</code> 时，自动降低该域名的 QPS 上限。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>经验法则 (Rule-of-thumb):</strong>
+默认全局 QPS 上限设为一个非常保守的值，例如 1 QPS per domain。对于白名单中的合作伙伴或明确表示欢迎爬虫的网站，可以根据其服务能力适当调高。永远不要因为追求速度而牺牲合规性和对他人的尊重。</p>
+</blockquote>
+<h4 id="54">5.4 元数据/版权/许可记录：为每一条数据建立“身份档案”</h4>
+<p>在生产级项目中，无法溯源的数据等同于不可用数据。详尽的元数据记录是数据治理、合规审计、偏见分析和可复现研究的生命线。</p>
+<ul>
+<li>
+<p><strong>必须记录的核心元数据字段</strong>：</p>
+<ul>
+<li><code>source_url</code>: 数据的原始、规范化后的 URL。</li>
+<li><code>crawl_timestamp_utc</code>: 抓取时的 UTC 时间戳（ISO 8601 格式）。</li>
+<li><code>http_status_code</code>: HTTP 响应码（例如 200, 301）。</li>
+<li><code>content_type</code>: 从 <code>Content-Type</code> 响应头解析的 MIME 类型。</li>
+<li><code>document_hash</code>: 文档原始内容的 SHA-256 哈希值，用于精确去重。</li>
+<li><code>parser_version</code>: 使用的解析器及其版本，便于未来需要重新解析时追溯。</li>
+<li><code>license_info</code>: 自动从页面（如 <code>rel="license"</code> 链接、页脚文本）或代码库（<code>LICENSE</code> 文件）中提取的许可信息。</li>
+<li><code>source_domain</code>: 数据来源的顶级域名。</li>
+</ul>
+</li>
+<li>
+<p><strong>存储格式</strong>：JSON Lines 是一个极佳的选择，每一行是一个独立的 JSON 对象，既结构化又易于流式处理。</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The quick brown fox jumps over the lazy dog.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://en.wikipedia.org/wiki/The_quick_brown_fox_jumps_over_the_lazy_dog&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;crawl_timestamp_utc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-05-21T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;document_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a8c0e4c8... (sha256)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;parser_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trafilatura-1.8.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;license_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CC BY-SA 4.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wikipedia.org&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="55">5.5 增量抓取与重复去重：应对动态世界的“数据免疫系统”</h4>
+<p>互联网是动态变化的，而重复内容是其最大的信息熵。我们的数据管道必须能高效地更新内容并剔除冗余。</p>
+<ul>
+<li>
+<p><strong>多阶段去重流水线 (Multi-Stage Deduplication Pipeline)</strong></p>
+<p>这是一个从粗到细、计算成本递增的过滤过程：</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">[</span><span class="c">Raw Documents</span><span class="k">]</span>
+<span class="c">      |</span>
+<span class="nb">+-----</span><span class="c">v</span><span class="nb">---------------------------+</span>
+<span class="c">| Stage 1: URL &amp; 精确哈希去重    |  (过滤 ~80% 重复)</span>
+<span class="c">| </span><span class="nb">-</span><span class="c"> URL 规范化                    |</span>
+<span class="c">| </span><span class="nb">-</span><span class="c"> SHA</span><span class="nb">-</span><span class="c">256 内容哈希              |</span>
+<span class="nb">+-----------------+---------------+</span>
+<span class="c">                  |</span>
+<span class="nb">+-----------------</span><span class="c">v</span><span class="nb">---------------+</span>
+<span class="c">| Stage 2: 近似内容去重           |  (过滤 ~15% 重复)</span>
+<span class="c">| </span><span class="nb">-</span><span class="c"> SimHash </span><span class="nb">+</span><span class="c"> 海明距离 </span><span class="nv">&lt;</span><span class="c"> 3        |</span>
+<span class="c">| </span><span class="nb">-</span><span class="c"> MinHash </span><span class="nb">+</span><span class="c"> LSH                 |</span>
+<span class="nb">+-----------------+---------------+</span>
+<span class="c">                  |</span>
+<span class="nb">+-----------------</span><span class="c">v</span><span class="nb">---------------+</span>
+<span class="c">| Stage 3: 语义/跨语言去重 (可选) |  (过滤 ~1% 重复)</span>
+<span class="c">| </span><span class="nb">-</span><span class="c"> 使用多语言 embedding 模型     |</span>
+<span class="nb">+-----------------+---------------+</span>
+<span class="c">                  |</span>
+<span class="c">          </span><span class="k">[</span><span class="c">Unique Documents</span><span class="k">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">*</span>   **Stage 1: 精确去重**: 使用一个庞大的分布式 KV 存储（如 RocksDB, LevelDB）来存储见过的所有 URL 规范形式和内容哈希值。这是最快、成本最低的去重步骤。
+<span class="k">*</span>   **Stage 2: 近似内容去重**:
+    <span class="k">*</span>   **SimHash**: 将文档转换为一个紧凑的 64 位或 128 位指纹。其精妙之处在于，内容相似的文档，其 SimHash 指纹的海明距离（Hamming Distance，即二进制位不同的数量）非常近。我们可以设置一个阈值（例如 <span class="sb">`d &lt;= 3`</span>），将距离小于该阈值的文档视为重复。
+    <span class="k">*</span>   **MinHash + LSH (局部敏感哈希)**: 对于超大规模数据集，O(n²) 的两两比较是不可行的。MinHash 将文档（视为 n-grams 集合）压缩成一个签名，而 LSH 是一种哈希技术，能让相似的签名以高概率“碰撞”到同一个桶里。这样，我们只需要在同一个桶内进行比较，将复杂度从 O(n²) 降至接近 O(n)。
+</code></pre></div>
+
+<ul>
+<li><strong>增量抓取</strong>:
+    对于需要定期更新的信源（如新闻网站、技术博客），在 Fetcher 层面利用 HTTP 的 <code>ETag</code> 和 <code>Last-Modified</code> 头部。发送 <code>If-None-Match</code> 和 <code>If-Modified-Since</code> 请求，如果服务器返回 <code>304 Not Modified</code>，则可跳过下载和处理，极大节省带宽和计算资源。</li>
+</ul>
+<h4 id="56">5.6 初步过滤流水线：数据的“安检口”</h4>
+<p>在数据被正式接纳并进入昂贵的 Tokenization 和训练阶段之前，必须通过一道快速、自动化的质量安检。</p>
+<ol>
+<li><strong>HTML 内容提取与清洗</strong>：原始 HTML 充满了导航栏、广告、页脚、脚本等“样板（Boilerplate）”代码。使用 <code>trafilatura</code>, <code>Beautiful Soup</code> 等库，结合启发式规则（如文本密度、链接密度）来精准提取核心正文内容。</li>
+<li><strong>语言识别 (Language ID)</strong>：使用 <code>fastText</code> 的紧凑型预训练模型，它可以极快地（每秒处理数千篇文档）为每篇文档打上语言标签。不符合我们语种配比（见第四章）的文档在此阶段被丢弃或分流。</li>
+<li><strong>低质内容过滤</strong>：<ul>
+<li><strong>启发式规则</strong>: 过滤掉文本过短/过长、符号/数字比例异常、平均词长过短的文档。</li>
+<li><strong>“乱码”检测</strong>: 计算文本的压缩比，无法有效压缩的文本（如随机字符串）通常是乱码。</li>
+</ul>
+</li>
+<li><strong>毒性与安全粗筛</strong>：使用基于关键词列表和正则表达式的快速过滤器，标记出明显的仇恨言论、色情、极端暴力等内容。这是一个高召回率（宁可错杀，不放过）的阶段，更精细的判断留给第十一章的小模型分类器。</li>
+<li><strong>PII (个人身份信息) 粗筛</strong>：利用正则表达式库（如 Google's <code>re2</code>）大规模扫描常见的 PII 模式，如电子邮件、电话号码、IP 地址、信用卡号等。对此类文档进行标记、丢弃或送入专门的脱敏流程。</li>
+</ol>
+<hr />
+<h3 id="_4"><strong>本章小结</strong></h3>
+<p>本章为构建一个万亿级 token 的文本与代码数据集奠定了坚实的工程与合规基础。我们强调了<strong>以质量为核心，而非数量</strong>的数据哲学，并将这一理念贯穿于数据采集的全过程。</p>
+<ul>
+<li><strong>顶层战略</strong>：我们确立了<strong>分级白名单</strong>制度，优先从高质量信源采集数据，并制定了<strong>API &gt; 开源包 &gt; 自建爬虫</strong>的务路径。</li>
+<li><strong>工程实现</strong>：我们设计了一个<strong>模块化、可扩展的分布式抓取框架</strong>，并深入探讨了其合规抓取和<strong>分布式限流</strong>的核心技术细节。</li>
+<li><strong>数据治理</strong>：我们强调了<strong>详尽元数据记录（数据溯源）</strong>的极端重要性，并提出了一个<strong>多阶段、由粗到细的去重流水线</strong>，以应对精确和近似重复。</li>
+<li><strong>质量保障</strong>：在数据入库前，必须通过一道包含<strong>内容提取、语言识别、低质过滤和安全粗筛</strong>的初步过滤关卡。</li>
+</ul>
+<hr />
+<h3 id="gotchas"><strong>常见陷阱与错误 (Gotchas)</strong></h3>
+<ol>
+<li>
+<p><strong><code>robots.txt</code> 的误读与缓存失效</strong>: 仅仅在爬虫启动时读取一次 <code>robots.txt</code> 是不够的，它可能会更新。<strong>解决方案</strong>: 为 <code>robots.txt</code> 设置一个合理的缓存有效期（如 24 小时），定期重新抓取。并确保解析库能正确处理 <code>Allow</code>, <code>Disallow</code> 的优先级和通配符 <code>*</code>。</p>
+</li>
+<li>
+<p><strong>字符编码地狱 (Character Encoding Hell)</strong>: 网页编码五花八门（UTF-8, GBK, ISO-8859-1等）。错误的解码会导致乱码，污染整个数据集。<strong>解决方案</strong>: 优先相信 HTTP 头的 <code>Content-Type</code> 中的 <code>charset</code>。如果缺失，则使用 <code>chardet</code> 等库进行启发式检测。所有文本在内部处理和存储时，必须统一为 UTF-8。</p>
+</li>
+<li>
+<p><strong>哈希冲突与指纹长度选择</strong>: 在使用 SimHash/MinHash 时，指纹长度是一个关键参数。64 位的 SimHash 在百亿级文档规模下，出现随机哈希碰撞的概率会显著增加，可能导致不相关的文档被错误地判为重复。<strong>解决方案</strong>: 根据数据集的最终规模估算，选择合适的指纹长度。对于万亿 token 规模，建议 SimHash 至少使用 128 位，MinHash 的签名长度也应相应增加。</p>
+</li>
+<li>
+<p><strong>动态页面的无底洞 (The Bottomless Pit of Dynamic Pages)</strong>: 现代网站大量使用 JavaScript 动态加载内容，简单的 HTTP GET 请求只能拿到一个空壳。同时，网站的日历、分页、筛选器可以生成无限多的 URL 变体，形成“爬虫陷阱”。<strong>解决方案</strong>:</p>
+<ul>
+<li>对于 JS 渲染，集成一个无头浏览器（如 Puppeteer/Playwright）池，但仅对少数高质量、必须渲染的白名单网站使用，因为它成本极高。</li>
+<li>通过 URL 模式识别和路径深度限制来避免爬虫陷阱。例如，限制 URL 的动态参数数量或总长度。</li>
+</ul>
+</li>
+<li>
+<p><strong>元数据模式漂移 (Metadata Schema Drift)</strong>: 在长达数月的数据采集中，你可能会决定增加一个新的元数据字段（例如，<code>is_human_translated</code>）。如果处理不当，会导致数据集的元数据结构不一致，给后续使用带来麻烦。<strong>解决方案</strong>: 制定严格的 schema 版本管理制度。任何 schema 变更都需要记录，并提供脚本来为旧数据填充新字段的默认值，确保整个数据集的元数据结构一致。</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter4.html" class="nav-link prev">← 第四章：数据总体策略与 30T token 配额（多语多模）</a><a href="chapter6.html" class="nav-link next">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集） →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

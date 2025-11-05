@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 24 章：交付与复现</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="24">第 24 章：交付与复现</h1>
+<p><strong>[里程碑 W25-W26]</strong></p>
+<h2 id="_1">开篇段落</h2>
+<p>预训练的完成并非项目的终点，而是价值转化的起点。一个凝聚了数百万美元算力成本和数千人·时投入的模型，如果无法被他人稳定使用、精确验证和高效复现，其大部分价值都将被锁定在少数核心开发者的本地环境中。本章聚焦于预训练完成后的“最后一公里”——如何将训练产出的海量、分散的文件（权重、优化器状态、词表、超参数）系统性地打包成一份清晰、可用、可复现的生产级工程交付物。我们将深入探讨分布式 Checkpoint 的内在结构与合并策略，多模态 Tokenizer 的原子化封装，复现脚本的健壮性设计，以及作为负责任 AI 实践核心的模型卡（Model Card）的撰写规范。学完本章，您将能够将一个极端复杂的预训练项目成果，转化为一个可供下游团队、合作伙伴乃至整个社区直接使用的、文档齐全、值得信赖的工程资产。</p>
+<h2 id="_2">文字论述</h2>
+<h3 id="241-checkpoint">24.1 Checkpoint 结构与分片</h3>
+<p>在 Megatron 这样的大规模分布式训练框架下，模型 Checkpoint 远非单个文件，而是一个反映了训练时硬件拓扑和并行策略的复杂目录结构。理解并妥善管理这一结构，是后续一切应用（微调、评估、推理）的基石。</p>
+<ol>
+<li><strong>训练 Checkpoint vs. 推理 Checkpoint：分离关注点</strong></li>
+</ol>
+<ul>
+<li>
+<p><strong>训练 Checkpoint (Training Checkpoint)</strong>: 这是训练过程的“完整快照”，其首要目标是 <strong>容错与续训</strong>。它体积庞大，通常包含：</p>
+<ul>
+<li><strong>模型权重分片 (Sharded Weights)</strong>: 按照张量并行（TP）和流水线并行（PP）策略切分的模型参数。例如，一个 <code>nn.Linear</code> 层的权重矩阵可能按列（对于 TP）被切分到不同 GPU 上。</li>
+<li><strong>优化器状态分片 (Sharded Optimizer States)</strong>: 这是 Checkpoint 体积的主要构成部分。对于 Adam/AdamW 优化器，每个参数都对应一阶矩 (<code>m</code>) 和二阶矩 (<code>v</code>)，其大小通常是模型参数本身的 <strong>两倍</strong> (BF16/FP32)。这些状态同样按 TP/PP 切分。</li>
+<li><strong>学习率调度器状态 (LR Scheduler State)</strong>: 记录当前的学习率、步数等。</li>
+<li><strong>随机数生成器状态 (RNG State)</strong>: 保证从断点续训时，数据加载、dropout 等随机过程可以精确复现。</li>
+<li><strong>训练元数据 (Metadata)</strong>: 包括迭代步数、已处理 Token 数、损失值历史等。</li>
+</ul>
+</li>
+<li>
+<p><strong>推理 Checkpoint (Inference Checkpoint)</strong>: 其核心目标是 <strong>易用性与效率</strong>。它只包含模型权重，经过合并与格式转换，通常具备以下特点：</p>
+<ul>
+<li><strong>合并与去冗余</strong>: 所有分片权重被合并，优化器状态等无关信息被丢弃。</li>
+<li><strong>标准格式</strong>: 通常转换为业界标准格式，如 Hugging Face Transformers 的 <code>.bin</code> 或更安全的 <code>.safetensors</code> 格式，便于生态系统集成。</li>
+<li><strong>体积优化</strong>: 体积通常只有训练 Checkpoint 的 1/3 或更少。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Rule-of-Thumb</strong>: 永远不要将原始的、高度分片的训练 Checkpoint 直接暴露给下游用户。提供一个专门的、经过验证的转换脚本，将训练 Checkpoint 转换为简洁的推理 Checkpoint，这是交付流程中的一个关键步骤。</p>
+<ol start="2">
+<li><strong>目录结构深度解析</strong></li>
+</ol>
+<p>一个典型的 Megatron-LM Checkpoint 目录结构如下，它编码了并行信息：</p>
+<div class="codehilite"><pre><span></span><code>&lt;checkpoint_root&gt;/
+├── iter_0010000/
+│   ├── pp_rank_000/
+│   │   ├── mp_rank_00/
+│   │   │   └── model_optim_rng.pt  &lt;-- TP=0, PP=0 的权重/优化器/RNG
+│   │   └── mp_rank_01/
+│   │       └── model_optim_rng.pt  &lt;-- TP=1, PP=0 ...
+│   ├── pp_rank_001/
+│   │   ├── mp_rank_00/
+│   │   │   └─ model_optim_rng.pt  &lt;-- TP=0, PP=1 ...
+│   │   └── mp_rank_01/
+│   │       └── model_optim_rng.pt  &lt;-- TP=1, PP=1 ...
+│   ├── ...
+│   ├── latest_checkpointed_iteration.txt  &lt;-- 文件内容为 &quot;10000&quot;
+│   └── arguments.json                     &lt;-- 保存训练时的所有命令行超参数
+└── iter_0020000/
+    └── ...
+</code></pre></div>
+
+<ul>
+<li><strong>专家并行 (MoE) 的复杂性</strong>: 如果启用了 MoE，每个专家的权重会作为独立的参数组存储在对应的 Transformer 层中，同样遵循 TP/PP 的切分规则。这使得 Checkpoint 结构更加复杂。</li>
+</ul>
+<ol start="3">
+<li><strong>合并脚本 (Consolidation Script) 的逻辑</strong></li>
+</ol>
+<p>转换脚本的核心任务是“逆向工程”并行切分的过程：</p>
+<ol>
+<li><strong>加载元数据</strong>: 读取 <code>arguments.json</code> 以获知训练时的 <code>tensor-model-parallel-size</code> 和 <code>pipeline-model-parallel-size</code>。</li>
+<li><strong>迭代加载分片</strong>: 按 <code>pp_rank</code> 和 <code>mp_rank</code> 的顺序遍历，加载所有 <code>model_optim_rng.pt</code> 文件，并仅提取其中的 <code>model</code> state_dict。</li>
+<li><strong>拼接张量并行 (TP) 分片</strong>:<ul>
+<li>对于 <strong>行并行</strong> 线性层（如 FFN 的 <code>dense_h_to_4h</code>），将不同 <code>mp_rank</code> 的权重沿 <strong>行维度</strong> (dim 0) <code>torch.cat</code>。</li>
+<li>对于 <strong>列并行</strong> 线性层（如 FFN 的 <code>dense_4h_to_h</code>），将不同 <code>mp_rank</code> 的权重沿 <strong>列维度</strong> (dim 1) <code>torch.cat</code>。</li>
+</ul>
+</li>
+<li><strong>组装流水线并行 (PP) 分片</strong>: 将不同 <code>pp_rank</code> 的层（例如，<code>pp_rank_000</code> 包含 0-11 层，<code>pp_rank_001</code> 包含 12-23 层）按顺序组装成一个完整的 <code>state_dict</code>。</li>
+<li><strong>格式转换与保存</strong>: 将合并后的 <code>state_dict</code> 键名映射到目标格式（如 Hugging Face），然后使用 <code>torch.save</code> 或 <code>safetensors.save_file</code> 保存。</li>
+</ol>
+<h3 id="242-tokenizer">24.2 Tokenizer/词表发布与兼容层</h3>
+<p>模型权重和 Tokenizer 是一个不可分割的 <strong>原子单元</strong>。任何细微的不匹配都会导致灾难性的解码失败。对于我们这个覆盖文本、音频、视频、3D、IPA 的复杂模型，Tokenizer 的交付必须做到万无一失</p>
+<ol>
+<li><strong>原子化的 Tokenizer 文件包</strong></li>
+</ol>
+<p>交付的 Tokenizer 包必须包含所有必要文件，并附带版本信息：</p>
+<ul>
+<li><strong><code>tokenizer.json</code></strong>: 由 <code>tokenizers</code> 库生成的核心文件，包含了词表、归一化、预分词、BPE 模型状态等。这是最高效、最完整的表示。</li>
+<li><strong><code>vocab.json</code> / <code>merges.txt</code></strong>: 原始的 BPE 词表和合并规则，提供可读性和向后兼容性。</li>
+<li><strong><code>special_tokens_map.json</code></strong>: 定义了框架所需的通用特殊 Token，如 <code>{"unk_token": "[UNK]", "bos_token": "&lt;s&gt;", ...}</code>。</li>
+<li><strong><code>added_tokens.json</code></strong>: <strong>极为关键</strong>。明确列出所有为多模态、IPA、3D 脚本等后期添加的特殊 Token 及其 ID。这份文件的版本必须与模型权重严格同步。例如：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;&lt;|image|&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50257</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;&lt;|video_start|&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50258</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;&lt;|ipa_ə|&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50259</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;&lt;|ipa_ʃ|&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50260</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;&lt;|blender:cube|&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50261</span><span class="p">,</span>
+<span class="w">  </span><span class="c1">// ... 几百个类似 token</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol start="2">
+<li><strong><code>VLAProcessor</code>：多模态输入的统一接口</strong></li>
+</ol>
+<p>直接让用户处理多模态输入的 Tokenization 是繁琐且极易出错的。我们必须提供一个高层封装的 Python 类，作为用户与模型之间的唯一接口。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 伪代码示例</span>
+<span class="k">class</span> <span class="nc">VLAProcessor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_tokenizer</span><span class="p">,</span> <span class="n">image_encoder</span><span class="p">,</span> <span class="n">audio_codec</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_tokenizer</span> <span class="o">=</span> <span class="n">text_tokenizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_encoder</span> <span class="o">=</span> <span class="n">image_encoder</span> <span class="c1"># e.g., a VQGAN encoder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audio_codec</span> <span class="o">=</span> <span class="n">audio_codec</span>   <span class="c1"># e.g., an EnCodec model</span>
+        <span class="c1"># ...</span>
+
+    <span class="k">def</span> <span class="nf">process_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_tokenizer</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_frames</span><span class="p">):</span>
+        <span class="c1"># video_frames: [num_frames, H, W, C]</span>
+        <span class="c1"># 1. Patchify/Tubeletize</span>
+        <span class="c1"># 2. Project through vision encoder to get visual tokens/embeddings</span>
+        <span class="c1"># 3. Add special tokens for camera position and timestamp</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">visual_token_ids</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">process_3d_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">script_string</span><span class="p">):</span>
+        <span class="c1"># 1. Validate script syntax</span>
+        <span class="c1"># 2. Tokenize based on predefined script grammar</span>
+        <span class="c1"># 3. Map to special token IDs</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">script_token_ids</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">):</span>
+        <span class="c1"># Takes a list of mixed-modality inputs, e.g.,</span>
+        <span class="c1"># [&quot;Describe this driving scene:&quot;, PIL.Image.open(&quot;...&quot;), &quot;The action is:&quot;, Action.TURN_LEFT]</span>
+        <span class="c1"># 1. Dispatches each item to the correct processor method.</span>
+        <span class="c1"># 2. Interleaves the resulting token sequences with modality-specific tokens.</span>
+        <span class="c1"># 3. Pads the final sequence to a uniform length.</span>
+        <span class="c1"># 4. Returns a dict ready to be passed to model.forward().</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">batch</span>
+</code></pre></div>
+
+<p>这个 <code>VLAProcessor</code> 类与模型权重一起交付，极大地降低了用户的使用门槛，并从根本上杜绝了预处理不一致的问题。</p>
+<h3 id="243-demo">24.3 推理样例与端到端 Demo</h3>
+<p>代码胜于雄辩。提供可直接运行的示例是验证交付物完整性、展示模型能力并引导用户的最有效方式</p>
+<ol>
+<li><strong>命令行接口 (CLI) Demo (<code>cli_demo.py</code>)</strong>
+提供一个简单的 CLI，用于快速的单轮交互，便于集成到自动化测试或脚本中。</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>cli_demo.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model_path<span class="w"> </span>/path/to/inference_checkpoint<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image_input<span class="w"> </span>/path/to/driving_scene.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--text_prompt<span class="w"> </span><span class="s2">&quot;The image shows a busy intersection. What is the traffic light&#39;s color for the ego vehicle?&quot;</span>
+</code></pre></div>
+
+<p>这个脚本应该能直接输出模型的文本回答。</p>
+<ol start="2">
+<li>
+<p><strong>SDK 风格的推理样例 (<code>inference_example.py</code>)</strong>
+这是一个更详细的 Python 脚本，展示了如何以编程方式使用 <code>VLAProcessor</code> 和模型，是下游开发者集成模型到自己应用中的“入门教程”。它应覆盖多种核心能力，并包含详细注释。</p>
+</li>
+<li>
+<p><strong>交互式 Demo (Jupyter Notebook / Gradio)</strong>
+对于一个多模态模型，一个交互式 Web UI 是必不可少的。它能让非技术人员（如产品经理、管理层）直观地感受模型的能力和局限。</p>
+</li>
+</ol>
+<ul>
+<li><strong>功能区</strong>: 应包含文件上传（图片/视频/音频）、文本输入框、3D 脚本输入区。</li>
+<li><strong>控制区</strong>: 提供解码参数的滑块或输入框（如温度、Top-p、Top-k）。</li>
+<li><strong>展示区</strong>: 清晰地展示多模态输出（生成的文本、动作序列、合成的音频等）。</li>
+<li><strong>案例库</strong>: 预置一些有代表性的成功和失败案例，引导用户探索。</li>
+</ul>
+<h3 id="244">24.4 复现脚本与配置矩阵</h3>
+<p>科学的严谨性和工程的可维护性要求预训练过程是完全可复现的。</p>
+<ol>
+<li><strong>封装的启动脚本 (<code>run_pretrain.sh</code>)</strong>
+该脚本应封装所有启动细节，使其只依赖少数几个环境变量。</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># sbatch directives for SLURM scheduler</span>
+<span class="c1"># SBATCH --job-name=vla-10b-pretrain</span>
+<span class="c1"># SBATCH --nodes=32</span>
+<span class="c1"># SBATCH --ntasks-per-node=8</span>
+<span class="c1"># SBATCH --gres=gpu:8</span>
+<span class="c1"># ...</span>
+
+<span class="c1"># Environment variables</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MASTER_ADDR</span><span class="o">=</span><span class="k">$(</span>scontrol<span class="w"> </span>show<span class="w"> </span>hostnames<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MASTER_PORT</span><span class="o">=</span><span class="m">6000</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATA_PATH</span><span class="o">=</span><span class="s2">&quot;/path/to/blended_dataset&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHECKPOINT_PATH</span><span class="o">=</span><span class="s2">&quot;/path/to/checkpoints&quot;</span>
+
+<span class="c1"># Megatron-LM launch command</span>
+torchrun<span class="w"> </span>--nproc_per_node<span class="w"> </span><span class="m">8</span><span class="w"> </span>--nnodes<span class="w"> </span><span class="m">32</span><span class="w"> </span>--master_addr<span class="w"> </span><span class="nv">$MASTER</span><span class="se">\_</span>ADDR<span class="w"> </span>--master<span class="se">\_</span>port<span class="w"> </span><span class="nv">$MASTER_PORT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pretrain_vla.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num-layers<span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--hidden-size<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--use-fp8<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tensor-model-parallel-size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pipeline-model-parallel-size<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># ... (数十个其他参数)</span>
+</code></pre></div>
+
+<ol start="2">
+<li><strong>环境快照：超越 <code>requirements.txt</code></strong>
+<code>requirements.txt</code> 只能锁定 Python 包版本，但无法保证底层的 CUDA, cuDNN, NCCL, 编译器版本一致，而这些对性能和数值稳定性至关重要。</li>
+</ol>
+<ul>
+<li><strong>金标准</strong>: 提供一个 <code>Dockerfile</code> 或 <code>Singularity</code> 定义文件，它从一个固定的基础镜像（如 <code>nvidia/pytorch:24.03-py3</code>）开始，精确安装所有依赖。这是实现字节级复现的唯一可靠途径。</li>
+<li><strong>次优方案</strong>: 提供详尽的环境文档，列出所有关键软件的版本号，并提供构建脚本。</li>
+</ul>
+<ol start="3">
+<li><strong>配置矩阵与实验追踪</strong>
+交付物应包含一个 <code>configs</code> 目录，存放 1B 和 10B 模型的完整配置文件 (<code>.yaml</code> 或 <code>.json</code>)。同时，强烈建议使用实验追踪工具（如 Weights &amp; Biases, MLflow）来记录每次运行，并将运行链接附在文档中。这提供了从代码 commit -&gt; 配置 -&gt; 结果的完整可追溯链条。</li>
+</ol>
+<p>| 参数 (Parameter)             | 1B Dense (基线)              | 10B MoE (生产)                      |</p>
+<table>
+<thead>
+<tr>
+<th>参数 (Parameter)</th>
+<th>1B Dense (基线)</th>
+<th>10B MoE (生产)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>架构</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>num-layers</code></td>
+<td>24</td>
+<td>48</td>
+</tr>
+<tr>
+<td><code>hidden-size</code></td>
+<td>2048</td>
+<td>4096</td>
+</tr>
+<tr>
+<td><code>ffn-hidden-size</code></td>
+<td>8192</td>
+<td>14336</td>
+</tr>
+<tr>
+<td><code>num-attention-heads</code></td>
+<td>32</td>
+<td>32</td>
+</tr>
+<tr>
+<td><code>moe-num-experts</code></td>
+<td>N/A</td>
+<td>16 (每 2 层一个 MoE)</td>
+</tr>
+<tr>
+<td><code>moe-top-k</code></td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>训练</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>global-batch-size</code></td>
+<td>4,194,304 tokens</td>
+<td>8,388,608 tokens</td>
+</tr>
+<tr>
+<td><code>lr-decay-style</code></td>
+<td>cosine</td>
+<td>cosine</td>
+</tr>
+<tr>
+<td><code>lr</code></td>
+<td>3.0e-4</td>
+<td>1.5e-4</td>
+</tr>
+<tr>
+<td><code>min-lr</code></td>
+<td>3.0e-5</td>
+<td>1.5e-5</td>
+</tr>
+<tr>
+<td><code>weight-decay</code></td>
+<td>0.1</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>并行</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tensor-model-parallel-size</code></td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>pipeline-model-parallel-size</code></td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td><strong>精度</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>fp8-format</code> (TE)</td>
+<td>E4M3</td>
+<td>E4M3</td>
+</tr>
+<tr>
+<td><code>optimizer-precision</code></td>
+<td>BF16</td>
+<td>BF16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="245">24.5 版本与模型卡</h3>
+<ol>
+<li><strong>语义化版本控制 (Semantic Versioning)</strong>
+对模型 Checkpoint 和 Tokenizer 应用严格的版本管理 (<code>v1.0.0</code>)：</li>
+</ol>
+<ul>
+<li><strong>主版本号 (Major)</strong>: 模型架构发生不兼容变化（如层数、注意力机制改变），需要修改推理代码。</li>
+<li><strong>次版本号 (Minor)</strong>: 模型在相同架构下进行了大规模增量训练或重要微调，能力显著提升，但接口兼容。</li>
+<li><strong>修订号 (Patch)</strong>: 修复了 Checkpoint 中的小问题（如转换脚本 bug、模型卡错别字），模型权重不变。</li>
+</ul>
+<ol start="2">
+<li><strong>模型卡 (Model Card)：负责任 AI 的基石</strong>
+模型卡是模型的“说明书”，是提升透明、管理风险和促进负责任使用的核心文档。</li>
+</ol>
+<ul>
+<li><strong>模型基本信息</strong>:<ul>
+<li>模型名称与版本：VLA-Driver-10B-MoE v1.0.0</li>
+<li>发布日期：2024-10-26</li>
+<li>模型类型：多模态自回归 Transformer (Unified Generation &amp; Understanding)</li>
+<li>许可证：Apache 2.0</li>
+<li>联系方式：[ai-safety@your-company.com]</li>
+</ul>
+</li>
+<li><strong>预期用途 (Intended Use)</strong>:<ul>
+<li><strong>直接用途</strong>: 用于研究目的的闭环/开环自动驾驶策略生成；作为驾驶场景的问答与描述系统；多模态交互式助手原型。</li>
+<li><strong>下游用途</strong>: 可作为基础模型进行微调，以适应特定的具身机器人任务或特定地域的驾驶规则。</li>
+<li><strong>禁止使用的场景 (Out-of-Scope)</strong>: <strong>严禁</strong>用于任何没有人类监督的、直接控制物理车辆或机器人的生产环境。严禁用于生成欺骗性内容、进行交通违规行为或侵犯个人隐私。</li>
+</ul>
+</li>
+<li><strong>训练数据 (Training Data)</strong>:<ul>
+<li><strong>数据来源与构成</strong>: 简述 Chapter 4 的据配比，强调数据来源的多样性（网页、代码、YouTube、播客、合成数据）及合规性努力（遵守 robots.txt，使用官方 API）。</li>
+<li><strong>数据治理</strong>: 明确声明已采用自动化工具和人工抽样对数据进行 PII 清洗、去毒化和去偏见处理。但需强调，无法保证 100% 消除所有有害或不准确数据。</li>
+</ul>
+</li>
+<li><strong>性能评测 (Evaluation)</strong>:<ul>
+<li><strong>评测摘要</strong>: 以表格形式展示在 Chapter 22 中核心基准测试集上的得分，并与 SOTA 模型进行对比。</li>
+<li><strong>局限性 (Limitations)</strong>:<ul>
+<li><strong>事实性</strong>: 模型可能产生“幻觉”，生成不符合事实的文本描述或错误的行动指令。</li>
+<li><strong>鲁棒性</strong>: 在训练数据中未充分出现的罕见场景（如极端天气、非典型交通事故、特殊路标）下，模型性能会显著下降。</li>
+<li><strong>偏见</strong>: 由于训练数据主要来自北美和欧洲，模型可能对其他地区的交通规则、驾驶习惯和文化背景理不足，甚至做出错误的判断。</li>
+<li><strong>因果推理</strong>: 模型主要学习相关性而非因果性，可能无法理解复杂的长时程交通博弈。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>伦理与安全考量 (Ethical Considerations)</strong>:<ul>
+<li><strong>风险评估</strong>: 分析模型被滥用的潜在风险，如生成虚假驾驶视频、用于恶意目的的机器人控制等。</li>
+<li><strong>风险缓释</strong>: 描述为降低风险所做的努力，如在模型中植入安全过滤器、对敏感主题的生成进行限制，以及在指令微调阶段加入安全与伦理准则。</li>
+</ul>
+</li>
+<li><strong>如何引用 (Citation)</strong>: 提供 BibTeX 格式的引用信息，以便学术界引用。</li>
+</ul>
+<h2 id="_3">本章小结</h2>
+<p>本章系统性地阐述了将一个复杂的预训练项目转化为一个健壮、易用、可复现的工程交付物的全过程。一个成功的交付不仅仅是上传一堆权重文件，而是一个包含了 <strong>规范化 Checkpoint</strong>、<strong>原子化封装的 Tokenizer</strong>、<strong>多层次的推理样例</strong>、<strong>固化环境的复现脚本</strong>  <strong>详尽透明的模型卡</strong> 的综合性工程软件包。遵循这些最佳实践，不仅能极大化模型的价值和影响力，更是践行负责任 AI 开发、建立社区信任的不可或-</p>
+<h2 id="gotchas">常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li><strong>Checkpoint 与并行策略的“幽灵耦合”</strong>: 直接将训练时的分片 Checkpoint 用于不同并行配置（甚至不同硬件）的推理，会导致权重加载错误或更隐蔽的数值错误。<strong>调试技巧</strong>: 建立一个“黄金”评测集。在合并 Checkpoint 后，立即在单 GPU 上用该评测集跑一遍，确保关键指标与分布式评测结果在误差范围内一致。</li>
+<li><strong>Tokenizer 特殊 Token 的“静默”不匹配</strong>: 在微调或新实验中，无意中改变了 <code>added_tokens.json</code> 的内容或顺序，导致模型性能断崖式下跌，但代码不报错。<strong>调试技巧</strong>: 为 Tokenizer 包本身计算一个哈希值（checksum），并在加载模型时校验。强制要求任何对 Tokenizer 的修改都必须触发模型的新版本发布。</li>
+<li><strong>环境依赖的“沼泽”</strong>: 复现脚本在另一台机器上因某个未声明的系统库（如 <code>libGL.so.1</code>）或 NCCL 版本不兼容而失败，排查耗时数天。<strong>调试技巧</strong>: 坚持使用 Docker/Singularity 作为交付的唯一环境标准。在 CI/CD 流程中加入一个步骤，自动在一个干净的环境中基于 Dockerfile 构建镜像并运行测试，确保环境的自包含性。</li>
+<li><strong>推理与训练预处理的“像素级”差异</strong>: 推理代码中图像归一化的均值/标准差与训练时有微小差异（如 <code>0.5, 0.5, 0.5</code> vs. ImageNet 的均值），导致性能下降。<strong>调试技巧</strong>: 将所有预处理变换（transforms）作为配置参数保存在模型配置 <code>config.json</code> 中，并让 <code>VLAProcessor</code> 从此配置中读取参数来初始化，确保来源唯一。</li>
+<li><strong>模型卡的“免责声明化”</strong>: 将模型卡写成一份充满了法律术语、旨在规避责任的文档，而不是一份真诚帮助用户理解模型、促安全使用的指南。<strong>调试技巧</strong>: 邀请潜在用户（特别是那些持批评态度的用户）来审阅模型卡草稿。如果他们读完后感到困惑或觉得信息不透明，那就说明模型卡需要重写。包含具体的失败案例截图远比抽象的文字描述更有说服力。</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter23.html" class="nav-link prev">← [chapter23.md] 成本、运维与 MLOps</a><a href="chapter25.html" class="nav-link next">第 25 章：安全、法律与合规 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

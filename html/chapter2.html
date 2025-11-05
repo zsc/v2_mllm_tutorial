@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 2 章：全局时间线与里程碑（W0–W26）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="2-w0w26">第 2 章：全局时间线与里程碑（W0–W26）</h1>
+<h2 id="21">2.1 开篇段落</h2>
+<p>本章是整个预训练项目的战略地图与行动指南，其核心是将一个看似不可能的宏大工程——在 26 周（约半年）内从零开始交付一个生产级的多模态大模型——转化为一套逻辑严密、风险可控、步步为营的执行框架。我们将超越简单的日期罗列，深入探讨每个阶段的<strong>哲学、关键依赖、量化验收标准和团队焦点切换</strong>。这不仅是一份时间表，更是协调数据、模型、基础设施、评测等多个专业团队，使其在同一个节拍上协同作战的“总指挥图”。学习本章，你将掌握如何将学术界的前沿探索，转化工业界可预测、可交付的系统工程。无论你是设计模型的 AI Scientist，还是保障算力的 Infra 工程师，这份时间线都将是你定位自身角色、预判下游需求、管理个人与团队预期的关键罗盘。</p>
+<h2 id="22">2.2 文字论述</h2>
+<p>一个成功的万亿 token 级预训练项目，与实验室里探索性的研究有着本质区别。它不是一次性的冲刺，而是一场需要精确补给、严密监控和强大后勤保障的持久战。我们的 26 周计划围绕“<strong>分阶段解耦、快速验证、持续交付</strong>”的核心思想展开，确保在投入巨额资源的主训练开始前，所有关键风险都已得到识别和缓解。</p>
+<h3 id="221">2.2.1 总览甘特图：多战线并行与关键路径分析</h3>
+<p>项目的复杂性在于数据处理、模型研发、基础设施搭建和训练本身是高度并行的。任何一条战线的延误都可能导致整个项目停滞。甘特图清晰地揭示了各工作流之间的依赖关系和关键路径。</p>
+<div class="codehilite"><pre><span></span><code><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">W0</span><span class="w"> </span><span class="o">-----</span><span class="w"> </span><span class="n">W6</span><span class="w"> </span><span class="o">-----</span><span class="w"> </span><span class="n">W10</span><span class="w"> </span><span class="o">------</span><span class="w"> </span><span class="n">W18</span><span class="w"> </span><span class="o">------</span><span class="w"> </span><span class="n">W22</span><span class="w"> </span><span class="o">-----</span><span class="w"> </span><span class="n">W26</span><span class="w"> </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="o">[</span><span class="n">规划与基建</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">1B验证</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">--- 10B 主训练 ---</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">评估与收尾</span><span class="o">]</span><span class="w"> </span><span class="o">|</span>
+<span class="o">----------+-------------------------------------------------------+</span>
+<span class="n">数据管道</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="err">███████████████████████████████████████████████████</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w"> </span><span class="p">(</span><span class="n">采集</span><span class="o">/</span><span class="n">治理</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">MVP</span><span class="w"> </span><span class="p">(</span><span class="n">W6</span><span class="p">)</span><span class="w">    </span><span class="o">|</span><span class="w">          </span><span class="n">持续增量与迭代</span><span class="w">                  </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">CRITICAL</span><span class="w"> </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="n">主训练的燃料</span><span class="err">，</span><span class="n">必须先行</span><span class="w">                   </span><span class="o">|</span>
+
+<span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">CRITICAL</span><span class="w"> </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="n">主训练的燃料</span><span class="err">，</span><span class="n">必须先行</span><span class="w">                   </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w">                                                       </span><span class="o">|</span>
+<span class="n">模型与架构</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="err">█████████</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w">                                        </span><span class="o">|</span>
+<span class="w"> </span><span class="p">(</span><span class="n">设计</span><span class="o">/</span><span class="n">分词</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">方案冻结</span><span class="p">(</span><span class="n">W2</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">后续为维护与微调</span><span class="err">，</span><span class="n">非关键路径</span><span class="w">             </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w">                                                       </span><span class="o">|</span>
+<span class="n">基础设施</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="err">████████████████</span><span class="w"> </span><span class="o">&gt;</span><span class="w">                                     </span><span class="o">|</span>
+<span class="w"> </span><span class="p">(</span><span class="n">集群</span><span class="o">/</span><span class="n">IO</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">PoC</span><span class="w"> </span><span class="p">(</span><span class="n">W2</span><span class="p">)</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="n">B适配</span><span class="p">(</span><span class="n">W8</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">持续运维</span><span class="err">，</span><span class="n">保障稳定</span><span class="w">             </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">CRITICAL</span><span class="w"> </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="n">训练的载体</span><span class="err">，</span><span class="n">必须先行</span><span class="w">                   </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w">                                                       </span><span class="o">|</span>
+<span class="n">训练与实验</span><span class="w">  </span><span class="o">|</span><span class="w">      </span><span class="o">[</span><span class="n">PoC</span><span class="o">]</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="err">█████████</span><span class="w"> </span><span class="o">&gt;|</span><span class="w"> </span><span class="err">█████████████████████████</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span>
+<span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="n">B</span><span class="o">/</span><span class="mi">10</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="n">B</span><span class="w"> </span><span class="n">E2E</span><span class="p">(</span><span class="n">W10</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="n">B</span><span class="w"> </span><span class="n">主训练</span><span class="w"> </span><span class="p">(</span><span class="n">W11</span><span class="o">-</span><span class="n">W18</span><span class="p">)</span><span class="w">         </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">CRITICAL</span><span class="w"> </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="n">项目的核心产出环节</span><span class="w">                     </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w">                                                       </span><span class="o">|</span>
+<span class="n">评测与对齐</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="err">█████████████████████████</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w"> </span><span class="p">(</span><span class="n">Eval</span><span class="o">/</span><span class="n">RL</span><span class="p">)</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="n">启动准备</span><span class="p">(</span><span class="n">W10</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">中期评测</span><span class="p">(</span><span class="n">W19</span><span class="o">-</span><span class="mi">22</span><span class="p">)</span><span class="w">          </span><span class="o">|</span>
+<span class="w">          </span><span class="o">|</span><span class="w">                                                       </span><span class="o">|</span>
+<span class="n">交付与文档</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">                      </span><span class="err">███████</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w"> </span><span class="p">(</span><span class="n">包</span><span class="o">/</span><span class="n">复现</span><span class="p">)</span><span class="w">  </span><span class="o">|</span><span class="w">             </span><span class="o">|</span><span class="w">            </span><span class="o">|</span><span class="w">                    </span><span class="n">发布</span><span class="p">(</span><span class="n">W26</span><span class="p">)</span><span class="o">|</span>
+
+<span class="c1">----------+-------------------------------------------------------+</span>
+</code></pre></div>
+
+<ul>
+<li><strong>关键路径分析</strong>: 明显地，<strong>数据管道</strong>和<strong>基础设施</strong>是项目早期的两条关键路径。1B 模型的端到端验证（W10）是一个重要的“汇合点”，在此之前，数据和基建必须就绪。随后，<strong>10B 主训练</strong>成为新的、也是最长的一条关键路径。</li>
+<li><strong>Rule-of-thumb</strong>: 数据准备工作必须<strong>至少提前 4-6 周</strong>于主训练启动。这个缓冲期不仅用于生产数据，更关键的是用于<strong>稳定数据管道</strong>。一个不稳定的数据管道（例如，频繁因上游 API 变更或脏数据格式而出错）在主训练期间是致命的。</li>
+</ul>
+<h3 id="222-phase-by-phase">2.2.2 关键里程碑详解 (Phase by Phase)</h3>
+<p><strong>第一阶段：规划、验证与数据 MVP (W0–W6) —— “地基与勘探”</strong></p>
+<ul>
+<li><strong>团队焦点</strong>: 架构师、高级工程师、法务。目标是做出正确的技术选型，并用最小代价验证其可行性。</li>
+<li>
+<p><strong>[里程碑 W0–W2] 方案冻结 &amp; PoC (Proof of Concept)</strong></p>
+<ul>
+<li><strong>交付</strong>:<ol>
+<li><strong>《技术方案设计文档》V1.0</strong>: 这不是一份空泛的 PPT，而是包含具体技术规格的工程蓝图。至少应包括：<ul>
+<li><strong>数据配比表 V0.1</strong>: 明确 30T token 的初步分解，例如：15T Common Crawl (RefinedWeb-style), 5T 代码, 2T 书籍, 3T 图像-文本对, 3T 视频-文本对, 1T 音频-文本对, 1T 合成数据。</li>
+<li><strong>Tokenizer 规范</strong>: Qwen Tokenizer 基础词表，以及多模态特殊 token（如 <code>&lt;|image|&gt;</code>, <code>&lt;|video_start|&gt;</code>, <code>&lt;|camera_front|&gt;</code>, <code>&lt;|ipa_phoneme|&gt;</code>）的设计与 ID 范围。</li>
+<li><strong>模型结构参数</strong>: 1B 和 10B 模型的层数、头数、隐层维度、MoE 专家数、路由策略等。</li>
+<li><strong>并行策略</strong>: 针对 256xH100 集群的 TP/PP/DP/EP 组合方案，以及通信拓扑映射。</li>
+<li><strong>FP8 实现方案</strong>: 明确使用 TransformerEngine 的哪个版本，FP8-E4M3/E5M2 的选择，以及哪些模块（Attention/FFN）启用 FP8。</li>
+</ul>
+</li>
+<li><strong>PoC 成功报告</strong>:<ul>
+<li><strong>目的</strong>: 回答一系列“Yes/No”问题：我们的数据加载器能否在 8 卡上喂饱 GPU？我们的自定义 MoE 路由代码是否能正确反向传播？FP8 在一个小的 Transformer 上是否能收敛？</li>
+<li><strong>内容</strong>: 包含在小数据集（如 C4 的一个分片）和 8-16 个 GPU 上运行 1000 步的 loss 曲线、GPU 利用率截图、NVLink 通信带宽图。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 方案通过架构委员会评审，无重大分歧；PoC 脚本和环境可被任何团队成员一键复现，loss 曲线平滑下降，无 NaN。</li>
+</ul>
+</li>
+<li>
+<p><strong>[里程碑 W3–W6] 数据采集与治理 MVP (Minimum Viable Product)</strong></p>
+<ul>
+<li><strong>交付物</strong>:<ol>
+<li><strong>数据管道 V1</strong>: 一套可工作的、自动化的脚本和服务集合。它应该能做到：从公开源（如 Common Crawl, GitHub, YouTube API）拉取数据 -&gt; 执行多阶段清洗和过滤（见 Chapter 10-11） -&gt; Tokenize -&gt; 打包成 WebDataset/TFRecord 格式 -&gt; 推送到对象存储。</li>
+<li><strong><code>dataset-v0.1</code> (约 1-2T tokens)</strong>: 这是第一批“航空燃油”，是启动 1B 模型训练的基础。它必须包含所有目标模态，即使某些模态的数据量还很小。例如：1T 文本，200B 图像 token，100B 音频 token，200B 视频 token。</li>
+<li><strong>数据治理仪表盘 V1</strong>: 一个可交互的前端页面，展示：<ul>
+<li>各数据源的 token 数量和占比。</li>
+<li>语言分布饼图（含方言/少数语种）。</li>
+<li>PII/毒性内容检出率随时间变化的趋势图。</li>
+<li>跨模态数据对齐的统计信息（如视频-字幕时间戳差异分布直方图）。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 数据管道连续无故障运行 72 小时以上；在 32 个节点上测试数据加载，平均带宽能满足 1B 模型训练 MFU &gt; 40% 的要求；仪表盘数据刷新延迟低于 24 小时。</li>
+</ul>
+</li>
+</ul>
+<p><strong>第二阶段：1B 基线与 10B 冲刺准备 (W7–W10) —— “全面彩排”</strong></p>
+<ul>
+<li><strong>团队焦点</strong>: 模型工程师、系统工程师。从验证单点技术转向整合所有组件，进行满负荷压力测试。</li>
+<li><strong>[里程碑 W7–W10] 1B 模型端到端跑通</strong><ul>
+<li><strong>目标</strong>: 这不是为了训练一个 SOTA 的 1B 模型，而是<strong>为了给 10B 训练进行一次成本可控的全流程、全系统演练</strong>。</li>
+<li><strong>交付物</strong>:<ol>
+<li><strong>1B 预训练检查点</strong>: 在 1-2T token 数据上训练得到的模型权重。</li>
+<li><strong>1B 训练性能分析报告</strong>: 这比模型本身更重要。内容包括：<ul>
+<li>端到端吞吐量（TFLOPs）和 MFU（Model FLOPs Utilization）曲线。</li>
+<li>瓶颈分析：通过 Profiling 工具（如 Nsight Systems）确定瓶颈是数据 IO、CPU 预处理、还是节点间通信。</li>
+<li>故障恢复演练记录：手动 kill 掉几个节点，测试 checkpoint 加载和重启流程需要多长时间，是否会自动剔除故障节点。</li>
+</ul>
+</li>
+<li><strong>初步评测报告</strong>: 在几个核心的学术 benchmark（如 GLUE dev, ImageNet validation, Librispeech test-clean）上运行，确保模型学到了跨模TA的基本关联性，loss 下降不是假象。</li>
+<li><strong>10B 训练启动手册 V1.0</strong>: 一份详尽的操作指南（SOP），包含最终的启动命令、配置文件、监控仪表盘链接、以及应急预案联系人。</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 1B 模型 loss 稳定收敛，关键指标显著优于随机基线（例如，语言模型的 Perplexity 低于某个阈值）；训练期间集群有效利用率（排除故障和重启时间） &gt; 95%；10B 启动手册通过所有相关工程师的交叉评审。</li>
+</ul>
+</li>
+</ul>
+<p><strong>第三阶段：10B MoE 模型主线预训练 (W11–W18) —— “深海航行”</strong></p>
+<ul>
+<li><strong>团队焦点</strong>: <strong>SRE (站点可靠性工程师)</strong>、值班工程师。研发工作暂停，团队的核心使命从“创造”转为“守护”。</li>
+<li><strong>[里程碑 W11–W18] 10B 主线预训练 (目标 10T token)</strong><ul>
+<li><strong>交付物</strong>:<ol>
+<li><strong>版本化的 10B MoE 模型检查点</strong>: 按固定的 token 间隔（如每 500B tokens）保存一个不可变、带标签的 checkpoint。例如 <code>checkpoint_1.5T_tokens</code>。</li>
+<li><strong>实时作战室监控大屏</strong>: 聚合了所有关键监控视图：<ul>
+<li><strong>全局视图</strong>: 总 loss 曲线、学习率、梯度范数、已处理 token 数。</li>
+<li><strong>硬件视图</strong>: 集群所有 GPU 的温度、功耗、显存使用率的热力图。</li>
+<li><strong>网络视图</strong>: NVLink/IB 带宽矩阵，及时发现通信拥堵的节点。</li>
+<li><strong>MoE 专家视图</strong>: 专家路由的负载均衡系数（Coefficient of Variation）、每个专家的利用率直方图、Router z-loss。这是诊断 MoE 模型训练问题的生命线。</li>
+</ul>
+</li>
+<li><strong>7x24 小时值班日志与故障复盘报告 (Postmortem)</strong>: 详细记录每一次训练中断的现象、根因分析、解决方案和预防措施。</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 训练任务完成 10T token 的数据处理量；loss 曲线全程平滑下降，无无法恢复的发散或长时间平台期；平均 MFU 达或超过预设目标（例如，对于 H100 上的 FP8 训练，目标 &gt; 50%）；发生的所有 SEV-1/2 级故障都在 4 小时内得到解决，并有完整的复盘文档。</li>
+</ul>
+</li>
+</ul>
+<p><strong>第四阶段：评估、精调与交付准备 (W19–W26) —— “收获与封装”</strong></p>
+<ul>
+<li><strong>团队焦点</strong>: 评测团队、产品团队、技术写作。将原始的 checkpoint 转化为可评估、可使用、可理解的最终产品。</li>
+<li>
+<p><strong>[里程碑 W19–W22] 蒸馏与综合评测</strong></p>
+<ul>
+<li><strong>交付物</strong>:<ol>
+<li>（可选）<strong>蒸馏模型检查点</strong>: 如果项目目标包含一个更小的、用于部署的模型，则在此阶段完成。</li>
+<li><strong>综合评测报告 V1.0</strong>: 这是一份深度、全面的模型“体检报告”，包含：<ul>
+<li>在数十个公开和内部 benchmark 上的得分，并与 SOTA 模型进行详细对比。</li>
+<li><strong>红队测试 (Red Teaming) 报告</strong>: 专门测试模型的安全性、偏见和有害内容生成能力。</li>
+<li><strong>长上下文能力估</strong>: 使用“大海捞针”等方法测试模型的有效上下文长度。</li>
+<li><strong>多模态能力质性分析</strong>: 提供精选的 case study，展示模型在复杂 VLA、自动驾驶场景理解、多语种语音交互等任务上的惊艳和失败案例。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 评测流程完全自动化，结果可一键复现；评测报告不仅有数字，还有深入的洞察，能明确指出模型的当前边界和下一步的优化方向。</li>
+</ul>
+</li>
+<li>
+<p><strong>[里程碑 W23–W26] 收尾、复现包与发布</strong></p>
+<ul>
+<li><strong>交付物</strong>:<ol>
+<li><strong>最终版模型检查点 (<code>final-checkpoint-v1.0</code>)</strong>: 经过最终验证和打包的权重文件。</li>
+<li><strong>模型卡 (Model Card)</strong>: 遵循业界最佳实践（如 Google 或 Hugging Face 的模板），详细说明模型的设计、训练数据（及合规声明）、预期用途、限制、偏见分析和环境影响（碳足迹估算）。</li>
+<li><strong>技术报告/博客</strong>: 面向公众或学术界，阐述项目的技术创新和关键发现。</li>
+<li><strong>可复现性工具包</strong>: 一个包含了以下内容的 Git 仓库或容器镜像：<ul>
+<li>加载模型权重并进行推理的示例代码。</li>
+<li>运行核心评测 benchmark 的脚本。</li>
+<li>一个 <code>Dockerfile</code> 或 <code>Singularity</code> 文件，固化了所有软件依赖。</li>
+<li>一个小型的示例数据集，用于快速验证端到端流程。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>验收标准</strong>: 一个不了解本项目的工程师，能够依据该工具包，在 1 小时内成功在单张 GPU 上运行模型推理，并在 24 小时内复现至少一个核心评测指标的结果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="223">2.2.3 风险缓释检查点</h3>
+<p>项目全周期都需要主动管理风险。以下是几个必须严肃对待的检查点：</p>
+<ul>
+<li><strong>数据合规风险 (W3 前)</strong>: 法务团队必须完成对所有计划使用的数据源的合规性审查。<strong>“先用后审”是绝对禁止的</strong>。对有争议的数据源（如包含大量用户生成内容但许可模糊的网站），必须定清晰的“最小化使用”或“匿名化处理”策略，并获得书面批准。</li>
+<li><strong>算力稳定性风险 (W8 前)</strong>: 在 1B 训练和 10B 启动前，必须对 256 卡集群进行至少 48 小时的满载稳定性测试。这不仅仅是跑 Linpack，而是运行一个与真实训练负载相似的模拟任务（例如，用合成数据训练一个中等规模模型），以暴露硬件、网络、文件系统在长时间高压下的潜在问题，并提前识别和隔离“坏节点”。</li>
+<li><strong>存储与IO带宽风险 (贯穿全程)</strong>: 视频数据是 IO 吞噬兽。必须进行量化估算：<code>6 cams * 480p_resolution * 3 channels * 12 Hz = ~10 MB/s per sample</code>。若全局批尺寸为 1024，则需要 <code>~10 GB/s</code> 的持续读取带宽。必须提前测试对象存储的吞吐量能否满足此需求，并考虑使用基于 SSD 的高速缓存层（如 Alluxio）来缓解压力。</li>
+<li><strong>模型收敛风险 (W12 前)</strong>: 若 10B 模型在训练的第一个 1T token 内出现 loss 不收敛、频尖峰、或 MoE 专家负载严重失衡（例如，超过 50% 的 token 被路由到前 10% 的专家），必须立即暂停。成立一个由模型、系统、数据专家组成的快速响应小组，利用诊断工具分析梯度流、激活值分布和数据样本，找到根因。<strong>“再跑跑看”的心态是大型训练项目中最昂贵的错误之一。</strong></li>
+</ul>
+<h2 id="23">2.3 本章小结</h2>
+<p>本章提供了一份为期 26 周的多模态大模型预训练项目作战地图。它将一个宏大目标解构为四个逻辑递进的阶段，强调了从<strong>研究探索到工业生产</strong>的范式转变：</p>
+<ol>
+<li><strong>地基与勘探 (W0-W6)</strong>：通过严谨的方案设计、PoC 验证和数据 MVP，将不确定性前置，用最小成本锁定技术路线。</li>
+<li><strong>全面彩排 (W7-W10)</strong>：利用 1B 模型进行全系统、全流程的压力测试，其核心产出是<strong>成熟的流程和有经验的团队</strong>，而非模型本身。</li>
+<li><strong>深海航行 (W11-W18)</strong>：进入高强度的 SRE 模式，核心目标是<strong>保障练过程的绝对稳定和高效</strong>，将意外中断的损失降到最低。</li>
+<li><strong>收获与封装 (W19-W26)</strong>：将训练出的原始权重，通过系统性的评测、对齐和文档化，转化为<strong>可信、可用、可复现</strong>的高价值资产。</li>
+</ol>
+<p>遵循这条时间线，并对每个里程碑的量化验收标准进行严格把关，是将巨额的算力投资转化为预期模型能力的最可靠路径。</p>
+<h2 id="24-gotchas">2.4 常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>陷阱：数据管道的“完美主义” vs “技术债”</strong></p>
+<ul>
+<li><strong>表现</strong>: 团队要么试图在 W6 前构建一个能处理所有异常、覆盖所有角落案例的“完美”数据管道，导致延期；要么为了赶进度，在管道中硬编码了大量临时补丁，导致后期维护成本激增。</li>
+<li><strong>调试技巧</strong>: 采用“<strong>版本化迭代</strong>”策略。<code>dataset-v0.1</code> 的目标是“跑通”，允许存在已知的小问题。同时建立“数据质量问题跟踪”系统，将发现的问题（如某种格式的字解析失败）记录在案，规划在 <code>v0.2</code> 或 <code>v0.3</code> 中修复。这使得模型训练可以与数据质量提升并行。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：轻视 1B 模型“彩排”的财务意义</strong></p>
+<ul>
+<li><strong>表现</strong>: 管理层或团队认为 1B 训练是“浪费算力”，不如将资源全部投入 10B 模型。</li>
+<li><strong>调试技巧</strong>: 用财务数据说话。估算 10B 训练每小时的成本（例如 <code>256卡 * $4/卡/小时 = ~$1024/小时</code>）。一次因可预见问题（如数据加载 bug）导致的 12 小时中断，损失超过 1.2 万美元。而为期三周的 1B 训练总成本可能只相当于 10B 训练几天的成本。这是一笔极其划算的“系统性风险保险”。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：“沉没成本”谬误</strong></p>
+<ul>
+<li><strong>表现</strong>: 10B 训练在 W13 时发现 loss 曲线开始缓慢偏离预期，但团队因已投入了数百万的计算资源，不愿意停下来彻底诊断，而是寄希望于“它可能会自己变好”。</li>
+<li><strong>调试技巧</strong>: 建立<strong>预设的“中止训”规则</strong>。例如：“如果连续 24 小时 loss 上升，或连续 72 小时 loss 持平，则自动暂停训练并触发告警。” 领导层必须明确支持“果断止损”的文化，承认重新启动有时是更快到达终点的路径。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：评测的滞后性与“最后一公里”问题</strong></p>
+<ul>
+<li><strong>表现</strong>: 团队直到 W18 训练结束后才开始搭建评测流水线，结果发现评测环境配置复杂、数据下载缓慢、脚本有 bug，导致模型能力的反馈周期长达数周，严重影响了后续的对齐和优化工作。</li>
+<li><strong>调试技巧</strong>: <strong>评测流水线的开发应与主训练并行</strong>。在 W10 产出 1B 模型后，评测团队就应该用它来测试和完善整个评测框架。目标是在 10B 训练期间，就能做到对中间 checkpoint 进行“夜间自动评测”，在第二天早上生成报告。</li>
+</ul>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter1.html" class="nav-link prev">← [chapter1.md] 前言、范围与读者指南</a><a href="chapter3.html" class="nav-link next">第三章：需求拆解与系统能力画像（VLA / AD / 语音） →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

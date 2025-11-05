@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="22-vla">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</h1>
+<h2 id="_1">开篇段落</h2>
+<p>欢迎来到项目的真理时刻。本章不是一份简单的指标清单，而是一份构建信任、量化进展、诊断问题的工程蓝图。一个未经严格、全面评测的模型，其内部状态是不可知的，其能力边界是模糊的，其在真实世界中的部署是危险的。在本章中，我们将建立一个与项目宏大目标相匹配的多维度、分层次的评测矩阵。它将系统性地检验模型从基础的语言理解、语音交互，到复杂的视觉时空推理、多视角融合、3D 结构化生成，乃至最终的 Vision-Language-Action (VLA) 闭环决策能力。学习本章，您将不仅掌握“评测什么”，更能深入理解“如何评测”和“为何这样评测”，从而为您的多模态大模型设计一套健全、可信且能洞察模型真实能力的评测流水线，并学会如何像科学家一样规避数据泄漏、统计谬误等陷阱。本章所有活动对应项目时间线的 <strong>[W20–W22]</strong> 关键阶段，是模型迭代、风险评估和最终交付前的核心验证环节。</p>
+<h2 id="_2">文字论述</h2>
+<p>评测的核心哲学是：<strong>通过精心设计的代理任务（proxy tasks）和度量，最大限度地预测模型在目标部署场景中的真实性能和风险</strong>。对于我们这样一个面向高风险物理世界交互（自动驾驶）和高要求人机协同（VLA、语音助手）的模型，评测体系必须具备以下特质：<strong>全面性（Coverage）、诊断性（Diagnosability）、鲁棒性（Robustness）和忠实度（Fidelity）</strong>。</p>
+<h3 id="221">22.1 文本能力评测：认知中枢的深度探测</h3>
+<p>文本是连接所有模态的“通用语言”，是模型逻辑推理、指令理解知识存储的基石。对其评测必须兼顾广度与深度。</p>
+<ul>
+<li>
+<p><strong>22.1.1 综合理解与知识（广度）</strong></p>
+<ul>
+<li><strong>学术基准</strong>: <strong>MMLU / C-Eval / CMMLU</strong> 是检验模型在人文、社科、理工、医学等57个学科领域综合知识的“高考”。高分代表模型具有广博的知识面。</li>
+<li><strong>语言学与常识推理</strong>: <strong>GLUE/SuperGLUE</strong> 集合了句子相似度、自然语言推断等任务，用于评估模型对语言细微之处的把握。<strong>HellaSwag / WinoGrande</strong> 则专注于常识推理，这对于理解非字面指令和预测物理世界后果至关重要。</li>
+<li><strong>数学与逻辑推理</strong>: <strong>GSM8K / MATH</strong> 评测模型的链式思考（Chain-of-Thought）和解决复杂应用题的能力。这不仅是数学能力，更是模型进行多步规划和决策的代理指标。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.1.2 领域知识与代码能力（深度与结构化）</strong></p>
+<ul>
+<li><strong>领域专用评测集</strong>: 针对自动驾驶，我们必须构建自定义评测集。例如：<ul>
+<li><strong>《驶员手册》问答 (Driver's Manual QA)</strong>: 将各地交通法规、车辆操作手册转化为问答对，检验模型是否“懂规矩”。</li>
+<li><strong>事故报告分析 (Accident Report Analysis)</strong>: 给定结构化的事故描述文本，要求模型判断责任方、提取关键因素，评测其在专业领域的文本理解能力。</li>
+</ul>
+</li>
+<li><strong>代码能力</strong>: <strong>HumanEval / MBPP</strong> 是标准。对于本项目，代码能力至关重要：<ol>
+<li><strong>VLA 动作序列的“语法”</strong>: 复杂的动作序列（如“先拿起杯子，再走到水槽，打开水龙头...”）本质上是一个程序。代码生成能力强的模型，更可能生成逻辑正确、结构合理的动作序列。</li>
+<li><strong>处理程序化 3D 数据</strong>: 模型需要直接生成或理解 <strong>Blender/CAD 脚本</strong>。这本身就是一项代码任务。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>22.1.3 长上下文能力</strong></p>
+<ul>
+<li><strong>大海捞针 (Needle-in-a-Haystack)</strong>: 这是一个压力测试，通过在不同长度（1K 到 1M token）的文本中随机放置一个关键信息（“针”）并提问，来绘制模型在不同上下文长度和“针”位置下的信息提取成功率曲线。</li>
+<li><strong>LongBench / ZeroSCROLLS</strong>: 提供了一系列需要跨越长距离依赖才能解决的真实任务，如长文问答、摘要等，系统性地评估模型在长序列下的综合能力。这对处理长视频、长对话历史至关重要。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Rule-of-thumb</strong>: 不要迷信单一的 MMLU 分数。一个 MMLU 高分但在《驾驶员手册》QA 上得分低下的模型，对于自动驾驶场景是完全不可用的。必须建立一个加权评分卡，其中领域专用评测集的权重远高于通用基准。</p>
+</blockquote>
+<h3 id="222">22.2 语音能力评测：流畅、准确、自然的交互</h3>
+<p>语音交互的评测是关于“体验”的科学，它超越了单纯的正确率，延伸到延迟、韵律和多语言的复杂领域。</p>
+<ul>
+<li>
+<p><strong>22.2.1 ASR (自动语音识别)</strong></p>
+<ul>
+<li><strong>词错误率 (Word Error Rate, WER)</strong>: $WER = (S + D + I) / N$，其中 S, D, I 分别是替换、删除、插入的词数，N 是参考文本的总词数。</li>
+<li><strong>评测集多样性</strong>: 必须覆盖：<ul>
+<li><strong>多语种</strong>: 除了 <strong>AISHELL</strong> (普通话)、<strong>LibriSpeech</strong> (英语)，必须包含<strong>方言/少数语种</strong>的自建或开源测试集。</li>
+<li><strong>噪声环境</strong>: 使用 <strong>CHiME</strong> 等基准或通过数据增强（叠加真实噪声）来评测模型的鲁棒性。</li>
+<li><strong>口音与多人对话</strong>: 包含不同口音的说话人，以及存在语音重叠的“鸡尾酒会”场景。</li>
+</ul>
+</li>
+<li><strong>IPA 层评测 (音素错误率, PER)</strong>: 这是本项目的特色和关键。<ul>
+<li><strong>流程</strong>: 1) 获取测试集的标准 IPA 标注（可能需要语言学专家）。2) 将模型的 ASR 输出文本通过 G2P (Grapheme-to-Phoneme) 工具转换为 IPA 序列。3) 计算模型生成的 IPA 序列与标准标注之间的音素错误率（PER）。</li>
+<li><strong>价值</strong>: PER 能更精确地诊断模型在声学层面的混淆，尤其是在处理训练数据中未见过的方言时，即使词汇不同，底层的音素也可能共通。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>22.2.2 TTS (文本到语音)</strong></p>
+<ul>
+<li><strong>平均意见分 (Mean Opinion Score, MOS)</strong>: 1-5 分制，邀请至少 20-30 位母语者对合成语音的<strong>自然度</strong>、<strong>清晰度</strong>、<strong>情感表达</strong>进行主观打分。这是黄金标准。</li>
+<li><strong>客观指标</strong>: <strong>Mel-Cepstral Distortion (MCD)</strong>, <strong>F0 Root Mean Square Error (F0-RMSE)</strong> 等可以作为开发过程中的快速回归测试，但与主观感知的相关性有限。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.2.3 对话系统评测</strong></p>
+<ul>
+<li><strong>延迟指标</strong>:<ul>
+<li><strong>Time-to-First-Token (TTFT)</strong>: 从用户语音结束到模型吐出第一个 token 的时间。</li>
+<li><strong>Response Latency</strong>: 从用户语音结束到模型语音响应结束的总时间。</li>
+</ul>
+</li>
+<li><strong>交互质量</strong>: <strong>打断成功率 (Barge-in Success Rate)</strong>、<strong>不当打断率 (False Barge-in Rate)</strong>、<strong>对话连贯性评分 (Coherence Score)</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="223">22.3 视觉/视频能力评测：从像素到时空因果</h3>
+<p>视觉评测须从静态的“这是什么”进化到动态、多视角的“发生了什么、将要发生什么”。</p>
+<ul>
+<li>
+<p><strong>22.3.1 基础静态图像理解</strong></p>
+<ul>
+<li><strong>COCO / VQAv2</strong>: 评测图像描述生成、视觉问答，确保模型具备基本的视觉-语言对齐能力。</li>
+<li><strong>ImageNet-1K</strong>: 作为模型视觉编码器（Visual Encoder）特征提取质量的一个 sanity check。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.3.2 单视频时序理解</strong></p>
+<ul>
+<li><strong>动作识别/定位</strong>: <strong>ActivityNet / THUMOS14</strong>，评测模型能否在未剪辑的长视频中识别并定位“车辆左转”、“行人过马路”等事件的起止时间。</li>
+<li><strong>视频因果推理</strong>: <strong>STAR / SWAG-V</strong>，提供一个视频片段，并提出关于接下来可能发生什么的多项选择题，直接评测模型的预测和推理能力。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.3.3 多摄融合时空理解 (核心)</strong></p>
+<ul>
+<li>这是本项目的关键评测点，需要自建评测集，利用 <strong>NuScenes / Waymo Open Dataset</strong> 等数据源。评测任务必须被设计为<strong>无法仅靠单个摄像头解决</strong>。</li>
+<li><strong>评测范例</strong>:</li>
+</ul>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="n">ASCII</span><span class="w"> </span><span class="n">Diagram</span><span class="o">:</span><span class="w"> </span><span class="n">Spatio</span><span class="o">-</span><span class="n">Temporal</span><span class="w"> </span><span class="n">Fusion</span><span class="w"> </span><span class="n">Challenge</span>
+
+<span class="w">     </span><span class="nl">Time</span><span class="p">:</span><span class="w"> </span><span class="n">T_0</span><span class="w">                     </span><span class="n">Time</span><span class="o">:</span><span class="w"> </span><span class="n">T_1</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;</span><span class="w"> </span><span class="n">T_0</span><span class="p">)</span>
+<span class="o">+----------------------+</span><span class="w">      </span><span class="o">+----------------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="n">Left</span><span class="w"> </span><span class="n">Cam</span><span class="p">]</span><span class="w"> </span><span class="n">Truck</span><span class="w"> </span><span class="n">Appears</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="n">Left</span><span class="w"> </span><span class="n">Cam</span><span class="p">]</span><span class="w"> </span><span class="n">Truck</span><span class="w"> </span><span class="n">Gone</span><span class="w">  </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="n">Front</span><span class="w"> </span><span class="n">Cam</span><span class="p">]</span><span class="w"> </span><span class="n">Empty</span><span class="w">    </span><span class="o">|</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="n">Front</span><span class="w"> </span><span class="n">Cam</span><span class="p">]</span><span class="w"> </span><span class="n">Truck</span><span class="w"> </span><span class="n">Appears</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+----------------------+</span><span class="w">      </span><span class="o">+----------------------+</span>
+
+<span class="nl">Question</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;请描述左侧摄像头 T_0 时刻出现的卡车，在 T_1 时刻相对于本车的运动状态。&quot;</span>
+<span class="n">Correct</span><span class="w"> </span><span class="n">Answer</span><span class="w"> </span><span class="n">requires</span><span class="w"> </span><span class="n">FUSION</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;卡车从左侧超越了本车，并出现在前方。&quot;</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">*</span>   **评测指标**: 除了答案的正确性，还需评估**几何一致性**（如判断目标在不同视图间的相对位置）和**时间同步性**（判断事件发生的先后顺序）。
+</code></pre></div>
+
+<h3 id="224-vla">22.4 VLA 综合能力评测：在虚拟世界中验证“知行合一”</h3>
+<p>VLA 的评测必须在模拟环境中进行，以安全可复现的方式检验模型的闭环性能。</p>
+<ul>
+<li>
+<p><strong>22.4.1 开环 vs. 闭环评测</strong></p>
+<ul>
+<li><strong>开环 (Open-loop / Off-policy)</strong>: 模型根据数据集中的历史观测生成动作序列，然后与专家的“真值”动作序列进行比较（如 L1/L2 损失）。这适合训练早期的快速迭代，但会因<strong>累积误差 (Compounding Error)</strong> 而高估模型性能。</li>
+<li><strong>闭环 (Closed-loop / On-policy)</strong>: 模型在模拟器（如 <strong>CARLA, Isaac Sim</strong>）中与环境实时交互。模型在 t 时刻的动作会改变 t+1 时刻的环境状态，从而影响其后续观测和决策。这是对真实世界性能更忠实的评估。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.4.2 关键 VLA 指标</strong></p>
+<ul>
+<li><strong>任务成功率 (Task Success Rate)</strong>: 在一系列标准化任务上（如“导航到指定地点”、“抓取桌上的苹果”），模型成功完成任务的百分比。这是最重要的顶层指标。</li>
+<li><strong>泛化能力</strong>: 在训练中未见过的<strong>新环境</strong>、<strong>新物体</strong>或<strong>新指令组合</strong>下测任务成功率。</li>
+<li><strong>鲁棒性</strong>: 在模拟环境中加入噪声（如传感器噪声、执行器延迟、物理参数扰动），评估模型性能的下降程度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="225">22.5 自动驾驶专项评测：安全是唯一底线</h3>
+<p>自动驾驶评测借鉴了汽车工业成熟的 V&amp;V (Verification &amp; Validation) 流程，强调量化、可追溯和对极端情况的覆盖。</p>
+<ul>
+<li>
+<p><strong>22.5.1 规划与预测精度</strong></p>
+<ul>
+<li>
+<p><strong>ADE (Average Displacement Error)</strong> / <strong>FDE (Final Displacement Error)</strong>: 衡量预测轨迹与真实轨迹的几何偏差。
+    $ADE = \frac{1}{N}\sum_{i=1}^{N}\frac{1}{T}\sum_{t=1}^{T} || \hat{p}_i(t) - p_i(t) ||_2$</p>
+</li>
+<li>
+<p><strong>miss rate@k</strong>: 预测 k 条轨迹，如果其中没有一条的 FDE 小于某个阈值（如 2 米），则认为是一次 miss。这评估了模型生成多模态预测的能力。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>22.5.2 安全与舒适性指标</strong></p>
+<ul>
+<li><strong>安全关键事件</strong>: <strong>碰撞率 (Collision Rate)</strong>、<strong>红灯违规率</strong>等必须为零或接近零。</li>
+<li><strong>预警指标</strong>: <strong>Time-to-Collision (TTC)</strong>, <strong>Brake Threat Number (BTN)</strong> 等用于量化潜在的碰撞风险。</li>
+<li><strong>舒适性指标</strong>: <strong>Jerk (加速度的变化率)</strong>, <strong>横向/纵向加速度</strong>，用于评估规划轨迹的平顺性，直接影响乘坐体验。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.5.3 场景驱动的仿真测试</strong></p>
+<ul>
+<li>利用 <strong>nuPlan</strong> 等基准，在数千个真实世界提取的挑战性场景（如无保护左转、紧急并线）中进行大规模闭环仿真测试，并报告在每个场景类别下的通过率。</li>
+</ul>
+</li>
+</ul>
+<h3 id="226-3d">22.6 3D 能力评测：从代码到形态的结构化验证</h3>
+<p>评测重点在于模型对程序化、结构化 3D 信息的理解和生成能力。</p>
+<ul>
+<li><strong>22.6.1 程序化几何一致性</strong><ul>
+<li><strong>语义-代码-几何闭环验证</strong>:<ol>
+<li><strong>输入</strong>: 文本描述 "创建一个宽高为2、高为5的红色长方体"。</li>
+<li><strong>模型输出</strong>: Blender Python 脚本 <code>bpy.ops.mesh.primitive_cube_add(size=1, scale=(2, 2, 5)); ... bpy.data.materials['RedMat'].diffuse_color = (1, 0, 0, 1)</code></li>
+<li><strong>评测</strong>:<ul>
+<li><strong>静态代码分析</strong>: 检查生成的代码是否调用了 <code>primitive_cube_add</code>，参数是否正确。</li>
+<li><strong>执行后验证</strong>: 运行脚本，通过 Blender API 查询生成对象的包围盒（bounding box）尺寸和材质颜色，与指令进行精确比对。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>22.6.2 X3D 解析鲁棒性</strong></p>
+<ul>
+<li>构建一个包含语法错误、节点缺失、拓扑矛盾的 X3D 测试集。</li>
+<li><strong>评测任务</strong>: 1) <strong>错误检测</strong>: 模型能否定位并描述文件中的问题。2) <strong>内容描述</strong>: 模型能否在有干扰的情况下，依然准确地用自然语言描述场景的主要结构。</li>
+</ul>
+</li>
+<li>
+<p><strong>22.6.3 传统网格任务</strong></p>
+<ul>
+<li>在 <strong>ShapeNet</strong> 等数据集上，使用 <strong>Chamfer Distance (CD)</strong> 和 <strong>Earth Mover's Distance (EMD)</strong> 作为评估点云/网格重建或生成质量的指标，作为能力的下限保证。</li>
+</ul>
+</li>
+</ul>
+<h3 id="227">22.7 评测集防泄漏与统计显著性：科学的基石</h3>
+<ul>
+<li>
+<p><strong>22.7.1 严格的防泄漏流程 (Decontamination Pipeline)</strong></p>
+<ol>
+<li><strong>建立指纹库</strong>: 对所有评测集（包括其验证集和测试集）的每个样本，提取 n-gram (n=8, 13) 指纹，并存入一个高效的查找数据结构中（如 Bloom Filter 或哈希集）。</li>
+<li><strong>全量扫描</strong>: 在数据预处理阶段，让每一条训练数据流经此指纹库。</li>
+<li><strong>标记与移除</strong>: 任何与指纹库有显著重叠的训练样本（如重叠 n-gram 超过 50%）都应被标记、隔离，并在最终训练中移除。</li>
+<li><strong>发布报告</strong>: 每次发布评测结果时，必须附上防泄漏报告，说明扫描方法、重叠率以及处理方式。</li>
+</ol>
+</li>
+<li>
+<p><strong>22.7.2 统计显著性检验</strong></p>
+<ul>
+<li><strong>问题</strong>: 模型 A 在 MMLU 上得分 85.1%，模型 B（如在前一轮 checkpoint）得分 85.0%，这 0.1% 的提升是真实的改进还是随机噪声？</li>
+<li><strong>方法 (自举法 Bootstrapping)</strong>:<ol>
+<li>假设评测集有 M 个样本。</li>
+<li>从这 M 个样本中<strong>有放回地</strong>随机抽取 M 个样本，形成一个的“自举样本集”。</li>
+<li>在这个新的样本集上计算模型得分。</li>
+<li>重复步骤 2 和 3 数千次（如 5000 次），得到一个得分的分布。</li>
+<li>从这个分布中计算出 95% 置信区间（如 <code>[84.8%, 85.4%]</code>）。</li>
+</ol>
+</li>
+<li><strong>结论</strong>: 如果两个模型的置信区间有大量重叠，则它们的性能差异不具有统计显著性。任何重要的性能声明都应附上置信区间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_3">本章小结</h2>
+<p>本章详细阐述了一套专为 VLA、自动驾驶和语音交互多模态大模型设计的全面评测体系。它强调从基础单模态能力到复杂多模态融合，再到最终应用场景的逐层验证。评测不仅仅是为了一个分数，更是为了深入理解模型的行为、诊断其缺陷，并为迭代提供可靠的指引。</p>
+<p><strong>核心评测哲学与实践清单</strong>:</p>
+<ul>
+<li><strong>分层评估</strong>: 从文本、语音、视觉基础能力，到 VLA、驾驶、3D 综合能力。</li>
+<li><strong>场景驱动</strong>: 所有评测设计都必须反映最终用的需求，特别是<strong>多摄融合</strong>和<strong>IPA 方言兼容</strong>。</li>
+<li><strong>安全优先</strong>: 在自动驾驶评测中，安全关键事件指标具有一票否决权。</li>
+<li><strong>闭环验证</strong>: 依赖闭环仿真来评估 VLA 和驾驶模型的真实世界性能，警惕开环评测的误导性。</li>
+<li><strong>科学严谨</strong>: 实施严格的<strong>数据防泄漏</strong>流程，并使用<strong>统计显著性检验</strong>来解释结果，避免被随机噪声误导。</li>
+</ul>
+<p>一个健全的评测体系是连接模型训练与现实世界价值的桥梁。在接下来的章节中，我们将讨论如何将这些评测结果融入到项目的运维、成本管理和最终交付中。</p>
+<h2 id="gotchas">常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>指标驱动的短视 (Metric Tunnel Vision)</strong>:</p>
+<ul>
+<li><strong>陷阱</strong>: 团队过度痴迷于优化某个具体指标，例如为了降低 ADE 而使驾驶模型行为变得异常保守（如在任何潜在冲突路口都长时间停车），这在真实交通流中既低效又危险。</li>
+<li><strong>调试技巧</strong>: 建立一个包含<strong>对抗性指标</strong>的仪表盘。例如，将 ADE 与<strong>行程时间 (Trip Time)</strong>、<strong>平均速度</strong>、<strong>被后车鸣笛次数（仿真）</strong>等效率和类人指标并列观察。定期组织由领域专家参与的定性“图灵测试”，盲测模型生成的回放视频，评估其行为是否“自然”和“合理”。</li>
+</ul>
+</li>
+<li>
+<p><strong>评测集污染 (Benchmark Contamination)</strong>:</p>
+<ul>
+<li><strong>陷阱</strong>: 除了直接的样本重叠，更隐蔽的是“概念污染”。例如，训练集中包含大量讨论 MMLU 基准、分析其题目特点的博客文章或学术论文。模型可能没有“记住”答案，但学会了针对该评测的“应试技巧”。</li>
+<li><strong>调试技巧</strong>: 除了 n-gram 级别的防泄漏，还应在评测后进行错误分析。如果模型在某个子集上表现异常好，或犯下了人类专家觉得匪夷所思的错误，应追溯其在该评测样本上的注意力图或激活，检查是否存在“捷径”学习的迹象。</li>
+</ul>
+</li>
+<li>
+<p><strong>线下/线上指标不一致 (Offline/Online Mismatch)</strong>:</p>
+<ul>
+<li><strong>陷阱</strong>: 模型的开环模仿学习误差（Imitation Loss）很低，但在闭环测试中，一个微小的预测偏差 $ \epsilon_t $ 在 t 时刻导致状态 $s_{t+1}$ 偏离了训练数据分布。在新的状态 $s_{t+1}$ 下，模型的策略网络可能从未见过类似输入，导致其输出灾难性的动作 $a_{t+1}$，从而使误差如雪球般越滚越大。</li>
+<li><strong>调试技巧</strong>: 在评测体系中，明确区分 L1（开环）、L2（闭环仿真）、L3（真实世界小范围测试）等级。模型必须在 L1 达标后才能进入 L2，在 L2 中暴露的问题（如累积误差）必须通过算法改进（如引入更多在线数据、使用 DAgger 等算法）解决，而不是继续在 L1 上刷分。</li>
+</ul>
+</li>
+<li>
+<p><strong>平均主义的谬误 (Fallacy of Averages)</strong>:</p>
+<ul>
+<li><strong>陷阱</strong>: 语音识别模型在总测试集上达到 98% 的准确率，但报告忽略了它在某地方言或特定口音说话人子集上的准确率只有 50%。这在产品发布后会造成严重的公平性和可用性问题。</li>
+<li><strong>调试技巧</strong>: 永远不要只报告总体平均指标。评测报告必须包含按关键维度（如驾驶场景、用户口音、光照条件、数据来源）细分的性能表格。建立专门的“长尾/边缘案例 (long-tail/edge case)”评测集，并将其性能作为发布的 Go/No-Go 决策的关键门槛。</li>
+</ul>
+</li>
+<li>
+<p><strong>忽视多模态的“融合”评测</strong>:</p>
+<ul>
+<li><strong>陷阱</strong>: 一个模型可以很好地回答关于视频内容的问题（“视频里有什么？”），也可以很好地执行文本指令（“左转”），但当被要求执行一个需要视觉推理的指令时（“向那辆红色汽车的方向转”），它失败了。这是因为视觉和语言模块虽然各自强大，但并未真正实现深度融合。</li>
+<li><strong>调试技巧</strong>: 设计“反事实”或“歧义消除”的评测样本。例如，在 VQA 中提问：“如果视频中的蓝色卡车是绿色的，它会违反交通规则吗？” 这需要模型不仅看到卡车，理解“蓝色”和“绿色”的概念，还要结合对交通规则的知识进行推理，强制其进行深层次的多模态信息整合。</li>
+</ul>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter21.html" class="nav-link prev">← [chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</a><a href="chapter23.html" class="nav-link next">[chapter23.md] 成本、运维与 MLOps →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

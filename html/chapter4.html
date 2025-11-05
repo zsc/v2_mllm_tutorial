@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第四章：数据总体策略与 30T token 配额（多语多模）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="30t-token">第四章：数据总体策略与 30T token 配额（多语多模）</h1>
+<h3 id="w3">[里程碑] W3：数据配额表冻结</h3>
+<h2 id="_1">开篇段落</h2>
+<p>如果说模型架构是引擎，算力是燃料，那么数据就是引擎需要学习的整个物理世界。数据的质量、多样性、规模与结构，从根本上决定了模型能力的上限与天花板。本章的核心使命，是为我们的 Vision-Language-Action (VLA) 大模型制定一份详尽、可执行且具备前瞻性的 <strong>30 万亿 (30T) token</strong> 数据总体策略。这不仅仅是一份数据清单，更是一套完整的设计哲学与工程蓝图。我们将深入探讨语种与模态的精细配比，阐明不同类型数据在训练生命周期中（尤其是在创新“强中期训练”阶段）所扮演的独特角色，并最终固化一份精确到具体数据集类型的量化配额表。此外，本章将详细介绍动态数据混合策略与数据谱系治理的必要性与实现路径，为后续所有数据采集、清洗与加载工作奠定坚实的基础。完成本章后，您将能独立设计一份生产级的多模态预训练数据“食谱”，并深刻理解其背后的理论依据与工程权衡，确保项目从一开始就走在正确的道路上。</p>
+<hr />
+<h2 id="41">4.1 语种与模态配比：构建世界模型的基因蓝图</h2>
+<p>我们的目标是构建一个具备全球视野和深度交互能力的模型。这就要求数据配比策略既要保证在主流、高资源场景下的卓越性能，又要兼顾长尾、低资源场景的可用性。</p>
+<ul>
+<li>
+<p><strong>主体语种（90%）：中文与英文</strong></p>
+<ul>
+<li><strong>理由</strong>：这两种语言是当前互联网信息、高质量书籍、科学文献和代码的最主要载体。确保它们占据绝对主体地位是为了让模型建立一个坚实、广博的世界知识库、掌握复杂的逻辑推理能力以及代码生成与理解能力。我们力求中英文数据在 token 总量上大致对等，以培养一个没有明显文化或语言偏向的核心认知内核。</li>
+<li><strong>实践</strong>：在具体采集时，会根据数据源的自然分布进行微调。例如，代码数据中英文注释和文档的比例天然更高，而某些主题的网页内容则可能中文更丰富。</li>
+</ul>
+</li>
+<li>
+<p><strong>其他语种（10%）</strong></p>
+<ul>
+<li><strong>构成</strong>：此部分包含两类：一是日语、韩语、德语、法语、西班牙语等拥有大量数字内容的主流外语；二是<strong>中国的方言（如粤语、闽南语）和少数民族语言（如藏语、维吾尔语）</strong>。前者旨在提升模型的国际化能力，后者则体现了项目的社会责任感与对文化多样性的尊重。</li>
+<li><strong>IPA 兜底策略</strong>：对于许多方言和缺乏标准化书写系统的少数语种，传统基于文本的训练方法全失效。为此，我们引入<strong>国际音标（International Phonetic Alphabet, IPA）</strong>作为统一的语音层表征。<ul>
+<li><strong>工作流</strong>：采集到的语音数据，通过专门训练的 ASR 模型或语言学专家标注，转写为标准的 IPA 序列。这样，一段粤语对话就变成了一段音频和一串 IPA 字符的配对。</li>
+<li><strong>优势</strong>：这种方法将不同语言的“音”拉平到了同一个标准表示空间。模型学习的是从 IPA 序列到声学特征的映射，反之亦然。这使得模型具备了对未见过的方言或语言进行零样本（Zero-Shot）或少样本（Few-Shot）语音识别（ASR）和语音合成（TTS）的潜力，极大地扩展了模型的语音能力边界。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>模态配比的哲学</strong></p>
+<ul>
+<li><strong>信息密度 vs. 获取成本</strong>：文本是抽象知识的结晶，信息密度最高，成本最低，因此占比最高。图像是静态场景的快照。而视频则包含了时间、动态、因果、音频等多重信息，对于学习物理世界规律和具身交互至关重要，但其存储、处理成本也是最高的。3D 数据则提供了无歧义的空间几何信息。</li>
+<li><strong>Rule-of-Thumb</strong>: 一个健康的模态配比应该像一个金字塔：底部是海量的文本作为知识基座；中间层是大量的图像和音频，建立视听感知；顶层是经过精选的、成本高昂的视频和 3D 数据，用于学习世界的动态和交互。</li>
+</ul>
+</li>
+</ul>
+<h2 id="42-mid-training">4.2 数据类型与“强中期训练（mid-training）”角色</h2>
+<p>我们摒弃了将所有数据一视同仁、简单混合的粗放模式，转而采用一种更精细的三层数据结构，服务于模型能力螺旋式上升的训练过程。</p>
+<ol>
+<li>
+<p><strong>通用预训练数据 (The Foundation, ~80%)</strong></p>
+<ul>
+<li><strong>角色</strong>：这是模型的“通识教育”阶段。通过接触海量的、未经精细筛选的互联网数据，模型学习语言的统计规律、基础的跨模态关联（例如，“苹果”这个词可以关联到红色水果的图片和咀嚼的声音）、以及一个广阔但不一定精确的世界知识图谱。</li>
+<li><strong>风险</strong>：这个阶段的数据包含了大量的噪声、偏见和不实信息，因此后续的数据治理和过滤至关重要。</li>
+</ul>
+</li>
+<li>
+<p><strong>强中期训练数据 (The Enhancement, ~15%)</strong></p>
+<ul>
+<li><strong>角色</strong>：这是模型的“精英教育”或“专项突破”阶段。在模型具备基础能力后，我们引入一类高质量、高密度、结构化的数据，其目标是高效地“教”会模型那些在通用数据中难以学到的高级能力，如<strong>推理、规划、遵循复杂指令、和理解因果关系</strong>。这借鉴了 Phi-3 “教科书”的核心思想：用更优质的数据，而非仅仅更大的数据，来实现能力的跃迁。</li>
+<li><strong>构成</strong>:<ul>
+<li><strong>教科书式文本/代码</strong>：利用强教师模型（如 GPT-4）或专家系统，围绕特定知识领域（如物理、数学、编程）生成结构化的、由浅入深的课程内容。这些内容富含解释、示例和练习，够教会模型严谨的思维链（Chain-of-Thought）。</li>
+<li><strong>Agentic RL Self-Play 数据</strong>：这是训练 VLA 模型的“杀手锏”。我们将一个早期的模型副本作为智能体（Agent）放入模拟环境（如自动驾驶模拟器 CARLA 或具身智能模拟器 Isaac Sim）中。智能体根据指令（“请把桌子上的杯子拿过来”）生成行动序列，环境给予反馈（成功、失败、碰撞）。这个“尝试-反馈”的闭环过程产生了大量的<strong>（观测，指令，行动，结果）</strong>四元组轨迹。这些轨迹数据，特别是那些从失败中学习的案例，是教会模型理解行动后果和进行长期规划的无价之宝。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>对齐数据 (The Alignment, ~5%)</strong></p>
+<ul>
+<li><strong>角色</strong>：这是模型的“社会化”阶段。在模型具备强大能力后，通过指令微调（SFT）和人类偏好对齐（如 DPO/RLHF），使其行为符合人类的期望、价值观和安全准则。本教程重点在前两个阶段，对齐阶段简要提及。</li>
+</ul>
+</li>
+</ol>
+<h2 id="43-30t-token-w3">4.3 配额表设计：30T token 精细化分解 [W3]</h2>
+<p>下表是本项目的核心数据蓝图，它不仅是预算，更是工程执行的路线图。所有 Token 估算均基于预选的 Tokenizer 模型进行过抽样校准。</p>
+<p>| <strong>模态 (Modality)</strong> | <strong>子类型 (Sub-type)</strong> | <strong>示例来源/构成</strong> | <strong>目标 Token 数 (万亿)</strong> | <strong>占比 (%)</strong> | <strong>备注/优先级/目标能力</strong> |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>模态 (Modality)</strong></th>
+<th style="text-align: left;"><strong>子类型 (Sub-type)</strong></th>
+<th style="text-align: left;"><strong>示例来源/构成</strong></th>
+<th style="text-align: center;"><strong>目标 Token 数 (万亿)</strong></th>
+<th style="text-align: center;"><strong>占比 (%)</strong></th>
+<th style="text-align: left;"><strong>备注/优先级/目标能力</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>文本 (Text)</strong></td>
+<td style="text-align: left;">网页文本 (Web Text)</td>
+<td style="text-align: left;">Common Crawl (CC), RefinedWeb, C4</td>
+<td style="text-align: center;">10.0</td>
+<td style="text-align: center;">33.3%</td>
+<td style="text-align: left;"><strong>高优先级</strong>。构建世界知识的广度。需要最强的清洗和去重策略。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">书籍 (Books)</td>
+<td style="text-align: left;">Google Books, 公共领域图书, 古腾堡计划</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">6.7%</td>
+<td style="text-align: left;">培养结构化思维、长上下文理解和正式语体。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">代码 (Code)</td>
+<td style="text-align: left;">The Stack v2, GitHub, StarCoder Data</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">6.7%</td>
+<td style="text-align: left;">核心逻辑推理能力、学习API调用、工具使用、程序化行动的基础。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">学术/科学 (Academic)</td>
+<td style="text-align: left;">arXiv, PubMed, Semantic Scholar</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">3.3%</td>
+<td style="text-align: left;">注入专业领域知识，提升在科学、技术、工程和数学（STEM）领域的准确性。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>视频 (Video)</strong></td>
+<td style="text-align: left;">通用视频 (General Video)</td>
+<td style="text-align: left;">YouTube, Vimeo (API合规), Bilibili, 公开课</td>
+<td style="text-align: center;">6.0</td>
+<td style="text-align: center;">20.0%</td>
+<td style="text-align: left;"><strong>极高成本，极高价值</strong>。学习物理常识、事件时序、多模态情感和日常交互。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>驾驶/具身 (Driving/Embodied)</strong></td>
+<td style="text-align: left;"><strong>内部车队采集</strong>，nuScenes, Waymo Open</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">6.7%</td>
+<td style="text-align: left;"><strong>最高优先级</strong>。<strong>多摄环视(6x 480p@12Hz)</strong> 数据，直接关联 VLA 和自动驾驶的行动预测与规划能力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>音频 (Audio)</strong></td>
+<td style="text-align: left;">播客/有声书 (Podcast/Audiobook)</td>
+<td style="text-align: left;">Common Voice, LibriSpeech, Spotify Podcasts</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">5.0%</td>
+<td style="text-align: left;">训练长语音理解、说话人识别、<strong>方言/少数语种+IPA</strong> 的声学模型。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">语音指令/对话 (Speech Command)</td>
+<td style="text-align: left;">Google Speech Commands, 合成多轮对话</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">1.7%</td>
+<td style="text-align: left;">语音交互的核心，训练模型的唤醒、打断、快速响应能力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>图像 (Image)</strong></td>
+<td style="text-align: left;">图文对 (Image-Text Pairs)</td>
+<td style="text-align: left;">LAION-5B, COCO, CC-12M, SAM</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">6.7%</td>
+<td style="text-align: left;">建立核心的视觉-语言基础对齐，是理解所有视觉内容的前提。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3D</strong></td>
+<td style="text-align: left;"><strong>程序化/结构化 (Procedural/Structured)</strong></td>
+<td style="text-align: left;"><strong>合成Blender/CAD脚本</strong>，<strong>X3D格式数据</strong>，Objaverse</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">1.7%</td>
+<td style="text-align: left;"><strong>技术重点</strong>。训练模型理解三维空间、几何拓扑和场景布局的抽象能力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">网格/点云 (Mesh/Point Cloud)</td>
+<td style="text-align: left;">ShapeNet, Thingi10K, .obj/.ply 数据集</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">1.7%</td>
+<td style="text-align: left;">作为对现实世界物体形态的补充，兼容传统 3D 数据格式。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>合成数据 (Synthetic)</strong></td>
+<td style="text-align: left;"><strong>教科书式文本/代码 (Textbook-like)</strong></td>
+<td style="text-align: left;"><strong>Phi-3 风格内部合成流水线</strong></td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">3.3%</td>
+<td style="text-align: left;"><strong>强中期训练核心</strong>。目标是大幅提升模型的推理和解题能力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>VLA 自博弈轨迹 (Agentic Self-Play)</strong></td>
+<td style="text-align: left;"><strong>Isaac Sim, CARLA, WebArena 模拟器</strong></td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">3.3%</td>
+<td style="text-align: left;"><strong>强中期训练核心</strong>。目标是教会模型在动态环境中进行规划和决策。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>总计 (Total)</strong></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;"><strong>30.0</strong></td>
+<td style="text-align: center;"><strong>100%</strong></td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule-of-Thumb: 视频 Token 成本估算</strong>
+对于 <code>6x 480p@12Hz</code> 的视频流，一个更精细的 Token 估算模型如下：</p>
+<ul>
+<li><strong>视觉部分</strong>: 假设使用 Patch-based VQ-VAE。每帧 <code>480x640</code> 分辨率，patch 大小 <code>16x16</code>，则每帧有 <code>30x40=1200</code> 个 patch。每秒 <code>12</code> 帧，6个摄像头。则每秒视觉 token 数为 <code>1200 * 12 * 6 = 86,400</code> tokens。</li>
+<li><strong>音频部分</strong>: 假设音频编码器（如 EnCodec）每秒产生 50-100 个 token。</li>
+<li><strong>总计</strong>: 每秒约 <code>86,500</code> tokens。这意味着 <strong>1小时的驾驶视频将产生超过 3 亿个 token</strong>。这个估算对于存储、IO 和训练吞吐预算至关重要。</li>
+</ul>
+<h2 id="44">4.4 温度采样与混合比调度：数据的动态炼金术</h2>
+<p>静态的数据配方无法适应模型能力成长的动态需求。我们采用一套动态策略，像一位大厨一样，在烹饪的不同阶段调整火候与配料。</p>
+<p><strong>温度采样 (Temperature Sampling)</strong>：
+为了解决数据分布的“马太效应”（富者愈富，贫者愈贫），我们使用温度采样来提升低频高质量数据源的曝光率。数据源 $i$ 的采样概率 $P_i$ 由其 token 数 $N_i$ 和温度系数 $\alpha$ 决定：
+$$
+P_i = \frac{N_i^\alpha}{\sum_j N_j^\alpha}
+$$</p>
+<ul>
+<li><strong>直观解释</strong>：当 $\alpha=1$ 时，完全按数据量大小采样。当 $\alpha$ 趋近于 0 时，所有数据源被等概率采样。我们选择一个中间值，如同给小而精的数据源加了“杠杆”。</li>
+<li><strong>Rule-of-Thumb</strong>: 初始阶段可设置 $\alpha=0.5$，在训练中期评测发现模型在某些小众但重要领域（如少数语种代码）能力不足时，可以适当调低 $\alpha$ (例如到 0.3) 来强化训练。</li>
+</ul>
+<p><strong>混合比调度 (Mixture Scheduling)</strong>：
+我们将整个预训练过程（假设为 T 个 step）划分为三个宏观阶段，每个阶段的数据“食谱”各有侧重。</p>
+<div class="codehilite"><pre><span></span><code><span class="c"> Training Progress: 0% </span><span class="nb">--------------------</span><span class="c"> 50% (T/2) </span><span class="nb">------------------</span><span class="c"> 85% (0</span><span class="nt">.</span><span class="c">85T) </span><span class="nb">-----------------</span><span class="c"> 100% (T)</span>
+<span class="c">      </span><span class="k">[</span><span class="c">Phase 1: Broad Knowledge Acquisition</span><span class="k">]</span><span class="c">      </span><span class="k">[</span><span class="c">Phase 2: Deep Skill Enhancement</span><span class="k">]</span><span class="c">     </span><span class="k">[</span><span class="c">Phase 3: Fine</span><span class="nb">-</span><span class="c">tuning &amp; Polish</span><span class="k">]</span>
+<span class="c">            |                                         |                                     |</span>
+<span class="c">Data Mix:   |                                         |                                     |</span>
+
+<span class="nb">-</span><span class="c"> Web Text: ●●●●● (Very High) </span><span class="nb">----------------------</span><span class="nv">&gt;</span><span class="c"> ●●● (Medium) </span><span class="nb">----------------------</span><span class="nv">&gt;</span><span class="c"> ● (Low)</span>
+<span class="nb">-</span><span class="c"> Books/Code:●●●● (High) </span><span class="nb">----------------------------</span><span class="nv">&gt;</span><span class="c"> ●●●● (High) </span><span class="nb">-----------------------</span><span class="nv">&gt;</span><span class="c"> ●● (Medium)</span>
+<span class="nb">-</span><span class="c"> Video/VLA: ●● (Medium) </span><span class="nb">-----------------------------</span><span class="nv">&gt;</span><span class="c"> ●●●●● (Very High) </span><span class="nb">-------------------</span><span class="nv">&gt;</span><span class="c"> ●●●● (High)</span>
+<span class="nb">-</span><span class="c"> Synthetic: ● (Low) </span><span class="nb">--------------------------------</span><span class="nv">&gt;</span><span class="c"> ●●●●● (Very High) </span><span class="nb">-------------------</span><span class="nv">&gt;</span><span class="c"> ●● (Medium)</span>
+</code></pre></div>
+
+<ul>
+<li><strong>第一阶段 (0 - T/2)</strong>：<strong>广度优先</strong>。以海量网页文本、书籍、代码和通用视频为主，目标是快速构建模型的基础词汇、语法、世界知识和基本的多模态对齐能力。此阶段的合成数据比例较低，以防模型过早学到合成数据的“套路”。</li>
+<li><strong>第二阶段 (T/2 - 0.85T)</strong>：<strong>深度与推理</strong>。大幅提升“强中期训练”数据（教科书、VLA 自博弈轨迹）的比例，同时增加高价值真实世界数据（驾驶视频、专业文献）的权重。此阶段是模型能否实现能力跃迁的关键，目标是集中火力攻克推理、规划和行动生成等硬核能力。</li>
+<li><strong>第三阶段 (0.85T - T)</strong>：<strong>精炼与对齐</strong>。降低通用网页数据的比例，维持高质量真实数据和部分合成数据的混合，并可能开始混入少量高质量的指令微调数据，为后续的对齐阶段做平滑过渡。目标是打磨模型的最终性能，修复已知缺陷。</li>
+</ul>
+<h2 id="45-data-lineagedna">4.5 数据谱系与治理台账（Data Lineage）：项目的“DNA档案”</h2>
+<p>对于一个 30T token 规模的生产级项目，数据治理绝非可有可无的“官僚流程”，而是项目的生命线，是科学性与工程鲁棒性的核心保障。</p>
+<p><strong>为什么必须做数据谱系？</strong></p>
+<ul>
+<li><strong>可复现性</strong>：当我们需要复现一个模型的训练结果时，精确的数据配比和处理流程是必要条件。</li>
+<li><strong>调试与归因</strong>：当模型出现问题（如性能回退、产生有害内容），数据谱系能让我们快速追溯到可能引入问题的“毒数据”源头。没有谱系，这种调试无异于大海捞针。</li>
+<li><strong>合规与审计</strong>：当面临数据来源的合规性审查，或需要响应用户数据删除请求（如 GDPR）时，完整的谱系记录是唯一的应对手段。</li>
+<li><strong>增量训练</strong>：当有新的数据源加入时，谱系能帮助我们理解新旧数据的关系，避免引入不必要的重复。</li>
+</ul>
+<p><strong>如何构建？</strong>
+我们为每一份进入处理流程的原始数据（一个网页、一个视频文件）生成一个唯一的哈希 ID，并围绕此 ID 建立一个元数据记录（例如，存储在 NoSQL 数据库中）。</p>
+<p><strong>一个谱系记录（JSON 示例）</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256:abcdef12345...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;youtube_api&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dQw4w9WgXcQ&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;youtube_standard&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;raw_artifact_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://raw-data-bucket/videos/dQw4w9WgXcQ.mp4&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;processing_history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vad_split&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-05-21T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;script_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vad-v2.1.py&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;s3://processed-data/audio_chunks/chunk1.flac&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asr_transcribe_ipa&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;whisper-large-v3-ipa-finetuned&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-05-21T11:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://processed-data/transcripts/chunk1.json&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quality_filter&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fasttext-quality-classifier-v1.0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-05-21T12:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;final_tokenized_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://tokenized-data/main-dataset/12345.bin&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Rule-of-Thumb</strong>: 数据谱系系统应在数据采集工作启动<strong>之前</strong>设计和部署完毕。将其视为基础设施的一等公民，并强制要求所有数据处理脚本过 API 与之交互。任何没有谱系记录的数据，都将被视为“黑户”，禁止进入最终的训练混合集。</p>
+<hr />
+<h2 id="_2">本章小结</h2>
+<p>本章为整个 VLA 大模型预训练项目奠定了坚实的数据地基。</p>
+<ul>
+<li><strong>核心配额与蓝图</strong>：我们确立了 <strong>30T token</strong> 的总体目标，并制定了一份详尽的语种（90% 中/英 + 10% 其他及 IPA 兜底）和多模态数据配额表，作为项目执行的“宪法”。</li>
+<li><strong>三层数据结构</strong>：创新性地将数据划分为<strong>通用预训练</strong>（广度）、<strong>强中期训练</strong>（深度）和<strong>对齐</strong>（社会化）三个层次，明确了高质量合成数据在攻克高级认知能力中的战略价值。</li>
+<li><strong>动态炼金术</strong>：通过<strong>温度采样</strong>（$P_i \propto N_i^\alpha$）和<strong>分阶段混合比调度</strong>，将静态的数据蓝图转化为动态的、适应模型成长的训练策略，实现资源的最优化利用。</li>
+<li><strong>DNA档案</strong>：强调了建立端到端的<strong>数据谱系</strong>和治理台账是保障项目可复现性、可调试性和合规性的生命线，并给出了具体实现范例。</li>
+</ul>
+<p>这份数据战略，是后续所有数据相关工作的总纲，将在 W3 前最终冻结，并指导我们航向一个能力更强、更可靠的多模态智能体。</p>
+<h2 id="gotchas">常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>陷阱：对 Tokenizer 的“汇率”估算过于乐观。</strong></p>
+<ul>
+<li><strong>描述</strong>：在规划初期，仅用文本的 <code>1 word ≈ 1.3 tokens</code> 经验来估算所有模态，尤其严重低估了高分辨率、高帧率视频的 Token 密度。</li>
+<li><strong>后果</strong>：这会导致数据存储、IO 带宽和训练时长的预算出现数量级的偏差（例如，原计划 6 周的视频数据处理，实际需要 12 周），是项目管理中的灾难。</li>
+<li><strong>规避</strong>：在 W1-W2 期间，冻结各模态的 Tokenizer 方案，并对每种核心数据类型（如驾驶视频、播客音频、3D脚本）进行大规模抽样 Tokenization，计算出精确的“原始字节-Token”换算系数，并以此修正有预算。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：强中期训练数据变成“精致的垃圾”。</strong></p>
+<ul>
+<li><strong>描述</strong>：合成数据（无论是“教科书”还是“自博弈轨迹”）的质量高度依赖于生成模型和环境的质量。如果生成的数据模式单一、逻辑简单或与真实世界脱节，模型学到的将是“应试技巧”而非真正的推理能力。</li>
+<li><strong>规避</strong>：对合成数据管道建立严格的质量评估体系。例如，用一组难题来验证“教科书”数据的有效性；对 VLA 轨迹进行物理真实性和任务多样性分析。定期将合成数据交由人类专家抽样评审。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：跨模态数据污染评估集。</strong></p>
+<ul>
+<li><strong>描述</strong>：在去重时，只在各自模态内部进行（文本-文本，图像-图像）。但一个核心概念可能以多种形态出现，例如，某个编程问题同时出现在 StackOverflow（文本）、教学视频（视频）和幻灯片截图（图像）中。如果这个问题恰好是评测集的一分，而其变体污染了训练集，那么评测结果将是虚高的“开卷考试”分数。</li>
+<li><strong>规避</strong>：建立跨模态的语义哈希或内容指纹系统（如 CLIP embedding）。在构建评测集时，将其所有模态的 embedding 放入一个“黑名单库”，任何训练数据若与库中样本的语义距离过近，都应被剔除或标记。</li>
+</ul>
+</li>
+<li>
+<p><strong>陷阱：数据谱系沦为“事后诸葛亮”。</strong></p>
+<ul>
+<li><strong>描述</strong>：团队为了赶进度，先用临时脚本处理数据，想着“训练跑起来后再回来补谱系记录”。这几乎百分之百会导致信息丢失（如脚本版本、参数、临时文件名），使得谱系记录不完整、不可信，最终失去其价值。</li>
+<li><strong>规避</strong>：将谱系记录作为数据处理流水线（如 Airflow, Kubeflow）的一个强制性原子操作。每个处理步骤的函数签名就应该要求传入和传出谱系对象。执行代码准入（Code Review）时，严格检查谱系记录的完整性。</li>
+</ul>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter3.html" class="nav-link prev">← 第三章：需求拆解与系统能力画像（VLA / AD / 语音）</a><a href="chapter5.html" class="nav-link next">第五章 数据采集 I：网页文本与代码（合规） →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

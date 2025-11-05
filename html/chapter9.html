@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 9 章 数据采集 V：3D（程序化优先）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">面向 Vision‑Language‑Action（VLA）、自动驾驶/具身与语音交互的多模态大模型预训练教程（公开版）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter1.md] 前言、范围与读者指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章：全局时间线与里程碑（W0–W26）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第三章：需求拆解与系统能力画像（VLA / AD / 语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第四章：数据总体策略与 30T token 配额（多语多模）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第五章 数据采集 I：网页文本与代码（合规）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章：数据采集 II：音频/语音（播客、公开课、语音数据集）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 数据采集 III：视频（长/短视频、驾驶/具身）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter8.md] 数据采集 IV：图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 数据采集 V：3D（程序化优先）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十章：数据治理与质量度量（跨模态）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 过滤与去脏：fastText 与小模型策略库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章：合成数据 I：教科书式文本/指令（Phi-3 风格）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第十三章 合成数据 II：音频与语音</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 合成数据 III：视频与 VLA 自博弈（Agentic RL Self‑Play）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tokenizer 设计：文本/音频/视频/图像/3D</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter16.md] 生成‑理解一体架构沿革</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter17.md] 模型架构：Qwen‑式自回归 Transformer（Dense / 先进 MoE，早期融合）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter19.md] 训练配方：从 1B 到 10B 的生产级方案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 20 章 蒸馏与教师模型：Gemma‑式 Logits 蒸馏及多模态知识迁移</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter21.md] 对齐与中期训练（Instruction/Mid-training/偏好）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 22 章：评测与基准（多模/多语/VLA/驾驶/语音）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter23.md] 成本、运维与 MLOps</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter24.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 24 章：交付与复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter25.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 25 章：安全、法律与合规</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter26.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[chapter26.md] 项目管理与人员阵型：大型AI工程的“交响乐指挥法”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter27.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">`[chapter27.md]` 常见陷阱与故障排查</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter28.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="appendixA.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：配置与脚本模板（可复制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="9-v3d">第 9 章 数据采集 V：3D（程序化优先）</h1>
+<h2 id="_1">开篇段落</h2>
+<p>本章将深入探讨多模态大模型预训练中一个至关重要但极具挑战的领域：<strong>三维（3D）数据的采集与处理</strong>。对于自动驾驶、具身智能和高级人机交互等场景，模型若要真正理解并与物理世界互动，就必须超越 2D 像素的局限，掌握物体的几何形状、空间关系、物理属性与拓扑结构。3D 数据的高维度和复杂性，使其采集与表征成为构建高级 VLA (Vision-Language-Action) 模型的关键瓶颈。本章的目标是建立一套高效、可扩展且语义丰富的 3D 数据采集策略，其核心原则是颠覆性的——<strong>“程序化优先” (Programmatic-First)</strong>。我们将优先采集能够生成 3D 模型的脚本与参数化描述，其次是结构化的文本格式，最后才是传统的静态网格文件。这种策略的本质，是从学习“物体长什么样”跃迁到学习“物体是如何被构建的”，从而让模型不仅能识别，更能推理其背后的设计意图与因果逻辑。</p>
+<hr />
+<h2 id="91-blendercad">9.1 Blender/CAD 脚本：程序化几何与参数化场景</h2>
+<p>我们 3D 数据策略的顶层是程序化内容，即能够通过代码或脚本生成 3D 场景的源文件。这在概念上等同于代码预训练中优先选择人类可读的、逻辑清晰的源代码，而非编译后的、信息大量丢失的二进制文件。</p>
+<ul>
+<li>
+<p><strong>核心思想</strong>：我们采集的不是静态的 <code>.obj</code> 或 <code>.stl</code> 文件，而是生成这些文件的 <strong>“可执行配方” (Executable Recipes)</strong>。这些配方本身就是一种极其紧凑且富含逻辑的语言。</p>
+<ul>
+<li><strong>示例：Blender Python API</strong></li>
+</ul>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 一个简单的程序化脚本示例</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+
+<span class="c1"># 清理场景</span>
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;SELECT&#39;</span><span class="p">)</span>
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+<span class="c1"># 创建一个立方体并参数化修改</span>
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">primitive_cube_add</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c1"># 参数化控制尺寸</span>
+
+<span class="c1"># 添加一个修改器（如倒角），体现程序化逻辑</span>
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">modifier_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BEVEL&#39;</span><span class="p">)</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">modifiers</span><span class="p">[</span><span class="s2">&quot;Bevel&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">modifiers</span><span class="p">[</span><span class="s2">&quot;Bevel&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">*</span>   **示例：OpenSCAD**
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// 描述性几何语言</span>
+<span class="kn">module</span><span class="w"> </span><span class="nn">rounded_box</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">hull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">translate</span><span class="p">([</span>
+<span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="n">z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">radius</span>
+<span class="w">      </span><span class="p">])</span><span class="w"> </span><span class="nb">sphere</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">radius</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">rounded_box</span><span class="p">([</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 参数化调用</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><strong>程序化数据的独特优势</strong>：</p>
+<ol>
+<li><strong>极高的信息密度与压缩率</strong>：几 KB 的脚本可以定义一个极其复杂的场景，其信息熵远高于渲染后数 MB 甚至数 GB 的网格文件。这是最极致的“压缩”。</li>
+<li><strong>可控的、无限的数据增强</strong>：通过程序化地扫描脚本中的参数（尺寸、分段数、随机种子），我们可以生成几乎无限的、多样且逻辑一致的 3D 样本，是解决 3D 数据稀疏性问题的根本手段。</li>
+<li><strong>学习因果与逻辑推理</strong>：模型可以直接学习从“设计意图”（代码逻辑）到“最终形态”（渲染结果）的映射。这使得模型有望回答 "如果把这个桌腿改短 10 厘米会怎么样？" 这类反事实和因果推理问题。</li>
+<li><strong>组合性与泛化</strong>：模型可以学习代码中的函数、模块等抽象概念，并可能在推理时行新的组合，生成训练集中未见过的新颖结构，展现出强大的组合泛化能力。</li>
+<li><strong>天然的版本化与可追溯性</strong>：脚本文件是文本，可以轻松地使用 Git 等工具进行版本控制，追踪每一次修改，这对于构建可复现、可审计的数据集至关重要。</li>
+</ol>
+</li>
+<li>
+<p><strong>数据来源与采集策略</strong>：</p>
+<ul>
+<li><strong>代码托管平台</strong>：在 GitHub、GitLab 等平台大规模搜索使用 <code>import bpy</code> (Blender)、<code>openscad</code>、<code>cadquery</code> 等关键词的公开项目。</li>
+<li><strong>3D 模型社区</strong>：Thingiverse、Printables、MyMiniFactory 等社区，许多创作者会分享 <code>.scad</code>, <code>.f3d</code> (Fusion 360) 等源文件。</li>
+<li><strong>学术与仿真数据集</strong>：机器人学（如 ShapeNet 的部分子集）、物理仿真领域的 benchmark 通常包含程序化生成的场景描述文件。</li>
+</ul>
+</li>
+<li>
+<p><strong>生产级处理流程</strong>：</p>
+<ol>
+<li><strong>采集与元数据关联</strong>：抓取脚本文件，并一同保存其所有相关元数据，如项目 <code>README.md</code>、文本描述许可证文件（<code>LICENSE</code>）、代码注释。</li>
+<li><strong>依赖分析与环境打包</strong>：分析脚本的依赖项（如特定的 Blender 版本、Python 库）。为不同类型的脚本创建标准化的、隔离的 Docker 执行环境。</li>
+<li><strong>安全沙箱执行与渲染</strong>：在<strong>无网络、文件系统只读</strong>的沙箱容器中执行脚本。脚本的输出被重定向，生成标准化的 3D 格式（如 <code>.glTF</code>）和多角度渲染图（如 12 个标准视角的 2D 图像）。<strong>这是安全红线，严禁在生产环境直接执行未知来源的脚本</strong>。</li>
+<li><strong>结构化数据对封装</strong>：将所有产物封装成一个结构化的数据单元，例如一个 JSON 对象：</li>
+</ol>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unique_id_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source_script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 原始脚本内容</span>
+<span class="w">  </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;blender_python&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text_description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A 3D model of a rounded box...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rendered_mesh_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://bucket/meshes/123.gltf&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rendered_views_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;s3://.../view_0.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;radius&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="c1">// 如果可提取</span>
+<span class="w">  </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MIT&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>经验法则 (Rule-of-Thumb)</strong>：
+将每个程序化 3D 脚本视为一个<strong>可调用的函数</strong>：<code>f(params) -&gt; Geometry</code>。我们的目标是让模型学习这个函数 <code>f</code> 本身，而不仅仅是它在某些特定 <code>params</code> 下的输出。数据集的质量取决于覆盖的 <code>f</code> 的多样性和 <code>params</code> 的广度。</p>
+</blockquote>
+<hr />
+<h2 id="92-x3d-">9.2 X3D-类文本结构化格式：层级/拓扑/材质的文本化表示</h2>
+<p>当无法获取程序化脚本时，我们的第二优先选择是基于文本的、描述场景图（scene graph）的结构化格式。X3D、VRML、以及行业内越来越重要的 USD (Universal Scene Description) 和 glTF 的 JSON 部分，都属于此类。它们描述了场景的“静态构成”，而非“动态生成过程”。</p>
+<ul>
+<li>
+<p><strong>核心思想</strong>：这些格式以类似 XML 或 JSON 的层级结构，声明式地定义一个 3D 场景的所有元素及其关系，包括：</p>
+<ul>
+<li><strong>节点 (Node)</strong>：几何体、光源、相机、分组节点。</li>
+<li><strong>变换 (Transform)</strong>：每个节点的位置、旋转、缩放，形成父子层级关系。</li>
+<li><strong>属性 (Attribute)</strong>：材质（颜色、粗糙度）、几何参数（球体半径）、灯光强度等。</li>
+</ul>
+</li>
+<li>
+<p><strong>优势</strong>：</p>
+<ul>
+<li><strong>可直接作为文本输入</strong>：作为纯文本，可以直接被模型的文本 tokenizer 处理。模型可以像解析 HTML DOM 树或 JSON 对象一样，学习理解 3D 场景的结构化语法。</li>
+<li><strong>保留高级语义结构</strong>：场景的层级关系（例如，<code>车轮</code> 是 <code>车轴</code> 的子节点，<code>车轴</code> 是 <code>底盘</code> 的子节点）、有意义的对象命名 (<code>DEF="LeftFrontWheel"</code>)、材质属性等高级语义被完整保留，这是 <code>.obj</code> 等格式完全不具备的。</li>
+<li><strong>人类可读与可调试</strong>：便于工程师进行数据样本的人工检查和调试。</li>
+</ul>
+</li>
+<li>
+<p><strong>ASCII 图示：一个更丰富的 X3D 场景图结构</strong></p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;X3D</span><span class="w"> </span><span class="na">profile=</span><span class="s">&#39;Immersive&#39;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Scene&gt;</span>
+<span class="w">    </span><span class="cm">&lt;!-- 定义一个可复用的红色材质 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Appearance</span><span class="w"> </span><span class="na">DEF=</span><span class="s">&#39;RedAppearance&#39;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Material</span><span class="w"> </span><span class="na">diffuseColor=</span><span class="s">&#39;1 0 0&#39;</span><span class="w"> </span><span class="na">specularColor=</span><span class="s">&#39;0.5 0.5 0.5&#39;</span><span class="nt">&gt;&lt;/Material&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Appearance&gt;</span>
+
+<span class="w">    </span><span class="cm">&lt;!-- 车辆底盘 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">DEF=</span><span class="s">&#39;ChassisTransform&#39;</span><span class="w"> </span><span class="na">translation=</span><span class="s">&#39;0 0.5 0&#39;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Shape&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Appearance</span><span class="w"> </span><span class="na">USE=</span><span class="s">&#39;RedAppearance&#39;</span><span class="nt">&gt;&lt;/Appearance&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Box</span><span class="w"> </span><span class="na">size=</span><span class="s">&#39;1.8 0.4 4&#39;</span><span class="nt">&gt;&lt;/Box&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/Shape&gt;</span>
+
+<span class="w">      </span><span class="cm">&lt;!-- 前轴，是底盘的子节点 --&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">DEF=</span><span class="s">&#39;FrontAxle&#39;</span><span class="w"> </span><span class="na">translation=</span><span class="s">&#39;0 0 -1.5&#39;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="cm">&lt;!-- 左前轮，是前轴的子节点 --&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">translation=</span><span class="s">&#39;-1 0 0&#39;</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Shape&gt;</span><span class="w"> </span>...<span class="w"> </span><span class="nt">&lt;Cylinder</span><span class="w"> </span><span class="na">radius=</span><span class="s">&#39;0.4&#39;</span><span class="w"> </span><span class="na">height=</span><span class="s">&#39;0.2&#39;</span><span class="nt">&gt;&lt;/Cylinder&gt;</span><span class="w"> </span>...<span class="w"> </span><span class="nt">&lt;/Shape&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/Transform&gt;</span>
+<span class="w">        </span><span class="cm">&lt;!-- 右前轮 --&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">translation=</span><span class="s">&#39;1 0 0&#39;</span><span class="nt">&gt;</span>
+<span class="w">          </span>...
+<span class="w">        </span><span class="nt">&lt;/Transform&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/Transform&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Transform&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Scene&gt;</span>
+<span class="nt">&lt;/X3D&gt;</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><strong>处理与 Tokenization</strong>：</p>
+<ol>
+<li><strong>解析与验证</strong>：使用标准库（如 <code>lxml</code> for XML, <code>orjson</code> for JSON）解析文件，验证其是否符合格式规范。</li>
+<li>
+<p><strong>线性化 (Linearization)</strong>：将树状结构转换为一个 token 序列。常用方法是<strong>深度优先遍历 (Pre-order Traversal)</strong>，并引入特殊 token 来表示结构：</p>
+<ul>
+<li><code>&lt;TRANSFORM_START&gt;</code></li>
+<li><code>translation='0 0.5 0'</code></li>
+<li><code>&lt;SHAPE_START&gt;</code></li>
+<li>...</li>
+<li><code>&lt;SHAPE_END&gt;</code></li>
+<li><code>&lt;TRANSFORM_END&gt;</code>
+这样，Transformer 的注意力机制就能自然地捕捉到层级依赖关系。</li>
+</ul>
+</li>
+<li>
+<p><strong>数值处理</strong>：将 <code>translation='0 0.5 0'</code> 这样的属性值中的数字进行适当的分箱或直接作为字符串处理，这取决于 tokenizer 的设计。</p>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p><strong>[里程碑] W6: 3D数据采集与预处理管道原型完成</strong>
+此时，我们应完成针对程序化脚本和 X3D/USD 类文本格式的数据采集、安全执行/解析、规整化和封装的自动化管道原型。产出的数据应是结构化的，可直接供后续的 tokenizer 和数据加载器使用。</p>
+</blockquote>
+<hr />
+<h2 id="93-obj-plypcd">9.3 .obj 回落 与互操作；必要时扩展到 .ply/.pcd</h2>
+<p>在无法获得程序化或结构化源文件的情况下，我们才回落到采集最常见的传统 3D 网格格式，如 <code>.obj</code>、<code>.stl</code>。这类文件本质上是“几何的快照”，是“顶点和面的扁平列表”，丢失了绝大部分高层语义信息。</p>
+<ul>
+<li>
+<p><strong>核心思想</strong>：将 <code>.obj</code> 文件视为一种低级的、需要专门编码的几何表征。直接将其作为文本送入模型是低效且错误的。</p>
+</li>
+<li>
+<p><strong>为什么直接 Tokenize <code>.obj</code> 是个坏主意</strong>：</p>
+<ul>
+<li><strong>词汇表爆炸</strong>：<code>v 1.234567 0.987654 0.543210</code> 这样一行中，浮点数的变化是无穷的，会导致 BPE 词表被大量无意义的数字片段污染。</li>
+<li><strong>语义模糊</strong>：Tokenizer 会将 <code>v</code>、<code>1.23</code>、<code>456</code> 等分割为独立的 token，完全破坏了 <code>(x, y, z)</code> 作为一个坐标向量的结构。</li>
+<li><strong>列过长</strong>：一个中等复杂度的模型可能有数百万个顶点，生成的 token 序列长度将远超现有 Transformer 的处理能力。</li>
+</ul>
+</li>
+<li>
+<p><strong>推荐的处理与 Tokenization 方案：量化与序列化</strong></p>
+<ol>
+<li><strong>解析与规整</strong>：使用 <code>trimesh</code> 等库读取顶点和面列表。然后执行严格的<strong>规整化</strong>（详见 9.5 节），包括将模型移至原点、缩放到单位立方体内。</li>
+<li><strong>顶点量化 (Vertex Quantization)</strong>：<ul>
+<li>将单位立方体 <code>[-1, 1]^3</code> 划分为一个离散的 3D 网格，例如 <code>1024x1024x1024</code>。</li>
+<li>每个顶点的浮点坐标 <code>(x, y, z)</code> 被映射到离散的整数坐标 <code>(ix, iy, iz)</code>，其中 <code>ix, iy, iz</code> 在 <code>[0, 1023]</code> 范围内。</li>
+<li><code>ix = round((x + 1) / 2 * 1023)</code></li>
+</ul>
+</li>
+<li><strong>序列化 (Serialization)</strong>：<ul>
+<li>为每个坐标轴的 <code>1024</code> 个离散位置分配专门的 token，例如词表中有 <code>X_0, ..., X_1023</code>, <code>Y_0, ..., Y_1023</code>, <code>Z_0, ..., Z_1023</code>。</li>
+<li>一个顶点 <code>(ix, iy, iz)</code> 被表为三个 token 序列 <code>&lt;X_ix, Y_iy, Z_iz&gt;</code>。</li>
+<li>引入特殊 token，如 <code>&lt;VERTEX_START&gt;</code>, <code>&lt;FACE_START&gt;</code>。</li>
+<li>整个 <code>.obj</code> 文件被转换为一个 token 序列，如：<code>&lt;VERTEX_START&gt; X_512 Y_600 Z_700 &lt;VERTEX_START&gt; ... &lt;FACE_START&gt; 1 4 3 &lt;FACE_START&gt; ...</code></li>
+</ul>
+</li>
+<li><strong>顶点排序</strong>：为了使同一几何体的 token 序列表示具有唯一性，可以对顶点进行规范排序，例如按照 Morton code (Z-order curve) 排序，以增强空间局部性。</li>
+</ol>
+</li>
+<li>
+<p><strong>处理点云 (.ply, .pcd)</strong>：对于自动驾驶场景中的 LiDAR 点云，处理流程类似，但只包含顶点量化与序列化步骤，没有“面”的信息。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>经验法则 (Rule-of-Thumb)</strong>：
+<code>.obj</code> 数据的预处理目标是：将连续的、无序的几何信息，转换为离散的、具有规范顺序的 token 序列，使其“语言化”以便 Transformer 理解。这个过程是有损的，量化精度（如 10-bit 对应 1024 个 bin）是在保真度和序列长度之间的权衡。</p>
+</blockquote>
+<hr />
+<h2 id="94-3d-">9.4 3D-文本/视频对齐策略与标定元数据</h2>
+<p>孤立的 3D 数据价值有限，其核心价值在于与其他模态的<strong>精确对齐</strong>。</p>
+<ul>
+<li>
+<p><strong>3D-文本对齐</strong>：</p>
+<ul>
+<li><strong>显式对齐</strong>：从 Sketchfab、TurboSquid 等平台抓取模型时，必须同时保存其标题、详细描述、用户标签、分类、评论等所有相关的文本信息。这些文本是高质量的监督信号。</li>
+<li><strong>隐式对齐</strong>：对于程序化脚本，代码中的变量名（如 <code>wheel_radius</code>）、函数名、代码注释本身就是最精确、最细粒度的文本描述。</li>
+</ul>
+</li>
+<li>
+<p><strong>3D-视频/图像对齐（自动驾驶/具身核心）</strong>：</p>
+<ul>
+<li><strong>关键要素</strong>：这需要采集包含已知 3D 对象的真实世界或高保真仿真视频，并附带精确的<strong>时序同步的传感器标定元数据</strong>。</li>
+<li><strong>相机内参 (Intrinsics)</strong>：矩阵 $K$，描述了相机的内部光学特性（焦距 $f_x, f_y$，主点 $c_x, c_y$）。</li>
+<li><strong>相机外参 (Extrinsics)</strong>：矩阵 $[R|t]$，描述了相机坐标系相对于世界坐标系（或车辆坐标系）的旋转 $R$ 和平移 $t$。</li>
+<li>
+<p><strong>投影关系</strong>：利用这些参数，我们可以将世界坐标系中的一个 3D 点 $X_{world}$ 投影到图像的 2D 像素坐标 $p_{image}$：
+    $ p_{image} = K [R|t] X_{world} $
+    这个公式是实现 3D 模型与 2D 视频像素级对齐的数学基础。</p>
+</li>
+<li>
+<p><strong>数据点最终形态</strong>：一个理想的对齐数据点是一个复杂的元组：</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span>
+<span class="w">  </span><span class="n">video_frames_t</span><span class="p">,</span><span class="w">                </span><span class="c1">// t 时刻的多摄像头图像 (e.g., 6-cam)</span>
+<span class="w">  </span><span class="n">lidar_point_cloud_t</span><span class="p">,</span><span class="w">           </span><span class="c1">// t 时刻的 LiDAR 点云</span>
+<span class="w">  </span><span class="n">imu_data_t</span><span class="p">,</span><span class="w">                    </span><span class="c1">// t 时刻的 IMU 数据</span>
+<span class="w">  </span><span class="n">can_bus_data_t</span><span class="p">,</span><span class="w">                </span><span class="c1">// t 时刻的车辆状态 (速度, 转向角)</span>
+<span class="w">  </span><span class="n">object_3d_annotations</span><span class="err">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;3d_model_id&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;cad_model_car_01&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 关联到我们的 3D 模型库</span>
+<span class="w">      </span><span class="s2">&quot;world_pose_t&quot;</span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="n">R</span><span class="o">|</span><span class="k">t</span><span class="p">],</span><span class="w">           </span><span class="c1">// 该物体在 t 时刻的世位姿</span>
+<span class="w">      </span><span class="s2">&quot;text_description&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;A red sedan turning left&quot;</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="o">...</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="n">camera_intrinsics_and_extrinsics</span><span class="w"> </span><span class="c1">// 所有相机的内外参</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2 id="95-3d">9.5 3D 数据压缩、规整与重复检测</h2>
+<p>处理 TB 甚至 PB 级别的 3D 数据，需要工业级的 MLOps 流程来保证效率和质量。</p>
+<ul>
+<li>
+<p><strong>压缩 (Compression)</strong>：</p>
+<ul>
+<li><strong>网格压缩</strong>：对 <code>.obj</code>, <code>.glTF</code> 等格式，使用 Google Draco 算法进行压缩。Draco 专为 3D 网格设计，压缩率极高，同时支持有损和无损模式。</li>
+<li><strong>点云压缩</strong>：使用专为点云设计的压缩方案或简单的 Zstd。</li>
+<li><strong>文本压缩</strong>：程序化脚本和结构化文本文件使用 Zstandard (Zstd) 进行压缩，它在压缩率和解压速度上取得了很好的平衡。</li>
+</ul>
+</li>
+<li>
+<p><strong>规整 (Normalization)</strong>：这是保证模型训练稳定性的关键一步。所有 3D 数据在进入训练流程前，必须经过严格的自动化规整管道：</p>
+<ol>
+<li><strong>坐标系统一</strong>：强制所有模型转换为统一的坐标系（例如，Y 轴朝上，右手坐标系）。</li>
+<li><strong>单位统一</strong>：将所有单位转换为米。</li>
+<li><strong>姿态规范化 (Canonical Orientation)</strong>：通过主成分分析 (PCA) 计算顶点分布的主轴，将模型旋转到对齐坐标轴的规范姿态。这能大大减少模型需要学习的姿态方差。</li>
+<li><strong>尺度统一</strong>：将模型整体缩放，使其最长轴的长度为 1，并将其平移至坐标原点。原始的物理尺寸必须作为元数据保存。</li>
+</ol>
+</li>
+<li>
+<p><strong>重复检测 (Deduplication)</strong>：</p>
+<ul>
+<li><strong>基于文本/脚本</strong>：对程序化脚本和结构化文本，使用 SimHash 或其他代码/文本去重算法。</li>
+<li><strong>基于几何</strong>：这是一个难题，因为微小的顶点扰动就会导致文件哈希完全不同。<ol>
+<li><strong>规范化渲染</strong>：将经过规整化的模型从多个标准视点（如正六面体的 6 个面中心、12 条棱的中点）渲染成深度图或轮廓图。</li>
+<li><strong>图像哈</strong>：计算这些 2D 渲染图的感知哈希（如 pHash, aHash）。</li>
+<li><strong>相似度判断</strong>：如果两个 3D 模型在多个视角的渲染图哈希值都非常接近，则将它们标记为近重复。这是一种计算成本较高但相对可靠的方法。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_2">本章小结</h2>
+<p>本章系统性地阐述了一套面向大规模预训练的、“程序化优先”的 3D 数据采集与处理策略，旨在为模型提供超越表象的、结构化的三维世界知识。</p>
+<ol>
+<li><strong>采集优先级金字塔</strong>：我们建立了 <code>程序化脚本 (Blender/CAD)</code> &gt; <code>结构化文本 (X3D/USD)</code> &gt; <code>传统网格 (.obj)</code> 的采集层次。这一策略的核心是从学习“结果”转向学习“过程与结构”。</li>
+<li><strong>差异化的处理策略</strong>：针对不同类型的数据，我们设计了专门的处理与 Tokenization 方案。脚本和结构化文本被“语言化”，而传统网格则被“几何编码”为离散 token 序列。</li>
+<li><strong>对齐是核心价值</strong>：3D 数据的力量在于与文本、视频等其他模态的精确对齐。我们强调了基于相机标定元数据实现 3D-2D 投影对齐的数学基础和工程实践。</li>
+<li><strong>工业级数据治理</strong>：构建生产级 3D 数据集离不开严格的 MLOps 流程，包括高效压缩、关键的规整化（坐标系、尺度、姿态统一）以及基于几何感知的重复检测。</li>
+</ol>
+<hr />
+<h2 id="gotchas">常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li><strong>坐标系地狱 (Coordinate System Hell)</strong>：这是 3D 数据处理中最常见且最致命的错误。Blender (Z-up), Unreal Engine (Z-up), Unity (Y-up), OpenGL (Y-up, right-handed), DirectX (Y-up, left-handed) 各不相同。必须在数据入口处建立一个单一、强制的规范坐标系转换管道，并配有单元测试。否则，模型将学到完全混乱和矛盾的空间关系。</li>
+<li><strong>尺度与单位混淆 (Scale &amp; Unit Ambiguity)</strong>：一个在文件中尺寸为 <code>1.0</code> 的物体，可能代表 1 毫米、1 厘米或 1 米。在规整化时，必须尽最大努力从元数据中恢复其真物理尺寸，并作为单独的特征输入给模型，否则模型无法建立对物理世界的正确认知。</li>
+<li><strong>危险的脚本执行 (Unsafe Script Execution)</strong>：再次强调，从互联网上抓取的代码是潜在的安全威胁。执行脚本的沙箱环境必须是最小权限的，严格禁止网络访问和对宿主机文件系统的写操作。定期审计沙箱的逃逸漏洞。</li>
+<li><strong>拓扑错误与非流形网格 (Broken Topology &amp; Non-Manifold Meshes)</strong>：采集到的 <code>.obj</code> 文件常常包含破面、自相交、非流形边（一条边连接超过两个面）等问题。这些“脏”数据会破坏渲染、物理仿真和某些几何处理算法。预处理流程中必须集成自动化的网格修复工具（如 <code>PyMeshFix</code>）来清洗和校验网格的有效性。</li>
+<li><strong>规范化引入的对称性歧义 (Ambiguity in Canonicalization)</strong>：对于高度对称的物体（如球体、立方体），基于 PCA 的规范化姿态可能不是唯一的，微小的噪声就可能导致其主轴方向在多个等价姿态间跳变。这会给模型带来不必要的学习噪声。需要设计更鲁棒的规范化算法或在训练中加入对称性数据增强来缓解此问题。</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter8.html" class="nav-link prev">← [chapter8.md] 数据采集 IV：图像</a><a href="chapter10.html" class="nav-link next">第十章：数据治理与质量度量（跨模态） →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
